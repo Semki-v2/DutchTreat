@@ -1,0 +1,17 @@
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Название события</th>
+            <th>Дата начала</th>
+            <th>Дата завершения</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="evento in eventos">
+            <td>{{evento.name}}</td>
+            <td>{{evento.startDate}}</td>
+            <td>{{evento.finishDate}}</td>
+        </tr>
+    </tbody>
+</table>
+<a href="{{baseUrl}}/events/new" class="btn btn-default">Добавить событие</a>
