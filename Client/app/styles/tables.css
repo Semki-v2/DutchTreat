@@ -1,0 +1,2 @@
+table.table tr td div.btn-group-hover { visibility:hidden;}
+table.table tr:hover td div.btn-group-hover { visibility:visible;}
