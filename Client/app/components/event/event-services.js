@@ -17,6 +17,18 @@ angular.module('EventServices', [])
 				}, 0);
 				evento.id = maxId+1;
 				eventosList.push(evento);
+			},
+			updateEvento : function ( evento ) {
+				return evento;
+			},
+			getEvento : function ( id ) {
+				return eventosList.reduce(function(a, b, c) { 
+					return b.id == id ? b: a
+				}, {id : 0});
+			},
+			deleteEvento : function ( evento ) {
+				var index = eventosList.indexOf(evento);
+				eventosList.splice(index, 1);
 			}
 		};
 	});

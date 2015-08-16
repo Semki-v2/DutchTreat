@@ -14,9 +14,9 @@ angular.module('semki.DutchTreat', [
         templateUrl: 'views/events/events-list.html',
         controller: 'EventosCtrl'
       })
-      .when('/events/wow', {
-      	templateUrl: 'views/events/events-list.html',
-        controller: 'EventosCtrl'
+      .when('/events/:id/edit', {
+      	templateUrl: 'views/events/event-edit.html',
+        controller: 'EventoEditCtrl'
       })
       .when('/events/new', {
       	templateUrl: 'views/events/event-new.html',
