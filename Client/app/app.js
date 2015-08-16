@@ -2,7 +2,7 @@
 
 // Declare app level module which depends on views, and components
 angular.module('semki.DutchTreat', [
-  'ngAnimate', 'ngRoute','ngResource', 'ui.bootstrap',
+  'ngAnimate', 'ngRoute','ngResource', 'ui.bootstrap', 'ngTagsInput',
   'EventControllers'])
 
   .config(function($locationProvider, $routeProvider) {

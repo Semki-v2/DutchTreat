@@ -12,7 +12,7 @@ angular.module('EventControllers', ['EventServices', 'ngRoute'])
 
   .controller('EventoNewCtrl', function($scope, $rootScope, $location, EventosService) {
   	$rootScope.$path = $location.path.bind($location);
-    $scope.evento = {};
+    $scope.evento = {participants: []};
     $scope.addEvento = function() {
     	EventosService.addEvento($scope.evento);
     	$location.path($scope.baseUrl + '/events');
