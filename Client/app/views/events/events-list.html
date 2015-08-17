@@ -3,13 +3,19 @@
   <thead>
     <tr>
       <th>Название</th>
-      <th></th>
+      <th class="col-sm-1"></th>
+      <th class="col-sm-1"></th>
     </tr>
 
   </thead>
   <tbody>
     <tr ng-repeat="evento in eventos">
       <td>{{evento.name}}</td>
+      <td>
+      	<a href="{{baseUrl}}/events/{{evento.id}}" class="btn btn-default btn-xs">
+        	<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+        </a> 
+      </td>
       <td>
       	<div class="btn-group pull-right btn-group-hover">
             <a href="{{baseUrl}}/events/{{evento.id}}/edit" class="btn btn-xs btn-warning">

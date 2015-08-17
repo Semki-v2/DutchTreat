@@ -26,4 +26,11 @@ angular.module('EventControllers', ['EventServices', 'ngRoute'])
     	EventosService.updateEvento($scope.evento);
     	$location.path($scope.baseUrl + '/events');
     };
-  });
+  })
+
+  .controller('EventoViewCtrl', function($scope, $rootScope, $location, $routeParams, EventosService) {
+  	$rootScope.$path = $location.path.bind($location);
+    $scope.evento = EventosService.getEvento($routeParams.id);
+    
+  })
+  ;
