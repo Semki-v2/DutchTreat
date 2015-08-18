@@ -1,8 +1,8 @@
 "use strict";
 
-angular.module("PurchasesModule", [])
+angular.module("PurchasesModule", ["Participants"])
 
-	.service("PurchaseService", function () {
+	.service("PurchaseService", function (ParticipantService) {
 		var purchasesList =  [
 	        {id: 1, event_id: 1, amount: 1000, description: "Бензин", buyer_id: 1, consumers: [1,2,3,4,5,6,7,8] },
 	        {id: 2, event_id: 1, amount: 1600, description: "Рыба", buyer_id: 2, consumers: [1,2,4,8] },
@@ -10,9 +10,21 @@ angular.module("PurchasesModule", [])
 	      ];
 		return {
 			getPurchases : function (event_id) {
-				return purchasesList.filter(function(purchase) {
-					return purchase.event_id === event_id;
+				var result = purchasesList.filter(function(purchase) {
+					return purchase.event_id === Number(event_id);
 				});
+				result = result.map(function(purchase) {
+					return {id: purchase.id, 
+						event_id: purchase.event_id, 
+						amount: purchase.amount, 
+						description: purchase.description,
+						buyer: ParticipantService.getParticipant(purchase.buyer_id),
+						consumers: purchase.consumers.map(function(consumer_id) {
+							return ParticipantService.getParticipant(consumer_id);
+						})
+					};
+				});
+				return result;
 			},
 			addPurchase : function (purchase) {
 				var maxId = purchasesList.reduce(function(a, b) { 
