@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module("EventServices", ["Participants"])
+angular.module("Eventos")
 
 	.service("EventosService", function (ParticipantService) {
 		var eventosList =  [

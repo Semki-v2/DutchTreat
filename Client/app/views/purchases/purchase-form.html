@@ -1,0 +1,29 @@
+<div class="form-group">
+  <label for="buyer" class="control-label col-sm-1">Покупатель: </label>
+  <div class="col-sm-6">
+    <select id="buyer" class="form-control" ng-model="purchase.buyer" required ng-options="participant.name for participant in participants track by participant.id" convert-to-number >
+    </select>
+  </div>
+</div>
+
+<div class="form-group">
+    <label for="description" class="control-label col-sm-1">Описание: </label>
+    <div class="col-sm-6">
+      <input type="text" ng-model="purchase.description" class="form-control" id="description" placeholder="Описание" />
+    </div>
+</div>
+<div class="form-group">
+    <label for="amount" class="control-label col-sm-1">Сумма: </label>
+    <div class="col-sm-6">
+      <input type="number" required min="0" ng-model="purchase.amount" class="form-control" id="amount" />
+    </div>
+</div>
+<div class="form-group">
+  <label for="consumers" class="control-label col-sm-1">Потребители: </label>
+  <div class="col-sm-6">
+    <select multiple class="form-control" ng-model="purchase.consumers" id="consumers" required ng-options="participant.name for participant in participants track by participant.id" convert-to-number>
+      
+    </select>
+  </div>
+</div>
+<input type="submit" class="btn btn-primary" value="Сохранить"/>

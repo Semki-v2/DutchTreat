@@ -18,7 +18,7 @@ angular.module('Participants', [])
 	      ];
 		return {
 			getParticipants : function (event_id) {
-				return participantsList.filter(function(participant) {return participant.event_id === event_id} );
+				return participantsList.filter(function(participant) {return participant.event_id == event_id} );
 			},
 			addParticipant : function (participant) {
 				var maxId = participantsList.reduce(function(a, b, c) { 
@@ -32,7 +32,7 @@ angular.module('Participants', [])
 			},
 			getParticipant : function ( id ) {
 				return participantsList.reduce(function(a, b, c) { 
-					return b.id === id ? b: a
+					return b.id == id ? b: a
 				}, {id : 0});
 			},
 			deleteParticipant : function ( participant ) {
