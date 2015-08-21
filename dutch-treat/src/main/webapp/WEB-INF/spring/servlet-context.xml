@@ -13,7 +13,7 @@
 	<!-- Разрешаем использование аннотаций Spring MVC (то есть @Controller и.т.д) -->
 	<mvc:annotation-driven />
 	
-	<context:component-scan base-package="net.de1mos.jbox" />
+	<context:component-scan base-package="org.semki.dutchtreat" />
 	
 	
 	<tx:annotation-driven/>
@@ -30,7 +30,7 @@
 	</bean>
 
 	<!-- Определяем папку, в которой будем искать веб компоненты (контроллеры) -->
-	<context:component-scan base-package="net.de1mos.jbox.webclient" />
+	<context:component-scan base-package="org.semki.dutchtreat.mvc.controllers" />
 	
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
 

@@ -14,17 +14,17 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
    
-    <bean name="httpClientWrapper" class="net.de1mos.jbox.api.client.vk.core.SimpleHttpCleintWrapper">
-    </bean>    
-    <bean name="vkApiClient" class="net.de1mos.jbox.api.client.vk.VkApiClient">
-    	<constructor-arg index="0" ref="vkCridential" />
-    	<constructor-arg index="1" ref="httpClientWrapper" />
-    </bean>
-    <bean name="vkCridential" class="net.de1mos.jbox.api.client.vk.core.VKApplicationCredential">
-    	<constructor-arg index="0" value="4688031" />
-    	<constructor-arg index="1" value="llw8a9STrIMCZDkeJPn5" />
-    	<constructor-arg index="2" value="http://localhost:8080/web-client/vk/sign" />
-	</bean>
+<!--     <bean name="httpClientWrapper" class="net.de1mos.jbox.api.client.vk.core.SimpleHttpCleintWrapper"> -->
+<!--     </bean>     -->
+<!--     <bean name="vkApiClient" class="net.de1mos.jbox.api.client.vk.VkApiClient"> -->
+<!--     	<constructor-arg index="0" ref="vkCridential" /> -->
+<!--     	<constructor-arg index="1" ref="httpClientWrapper" /> -->
+<!--     </bean> -->
+<!--     <bean name="vkCridential" class="net.de1mos.jbox.api.client.vk.core.VKApplicationCredential"> -->
+<!--     	<constructor-arg index="0" value="4688031" /> -->
+<!--     	<constructor-arg index="1" value="llw8a9STrIMCZDkeJPn5" /> -->
+<!--     	<constructor-arg index="2" value="http://localhost:8080/web-client/vk/sign" /> -->
+<!-- 	</bean> -->
 	
 	
 

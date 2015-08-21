@@ -15,13 +15,13 @@
 
 	<context:annotation-config />
 	
-	<context:component-scan base-package="net.de1mos.jbox" />
+	<context:component-scan base-package="org.semki.dutchtreat" />
 	
 
 	<!-- Файл с настройками ресурсов для работы с данными (Data Access Resources) -->
 	<import resource="data.xml" />
 	
-<!-- 	<import resource="controllers.xml"/> -->
+	<import resource="controllers.xml"/>
 	
 <!-- 	<import resource="security.xml"/> -->
 	
