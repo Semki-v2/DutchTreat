@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<changeSet id="1" author="lvm444">
+		<createTable tableName="user">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="name" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="active" type="boolean" defaultValueBoolean="true" />
+			<column name="password" type="varchar(50)" defaultValue="12345678" />
+			<column name="role" type="int"></column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2" author="lvm444">
+		<createTable tableName="role">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="name" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<insert tableName="role">
+			<column name="name" value="SUPERUSER"></column>
+		</insert>
+		<insert tableName="role">
+			<column name="name" value="ADMIN"></column>
+		</insert>
+		<insert tableName="role">
+			<column name="name" value="USER"></column>
+		</insert>
+		<addForeignKeyConstraint baseColumnNames="role"
+			baseTableName="user" constraintName="fk_user_role" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="role" />
+	</changeSet>
+
+	<changeSet id="3" author="lvm444">
+		<insert tableName="user">
+			<column name="name">ADMIN</column>
+			<column name="password">123</column>
+			<column name="active">true</column>
+			<column name="role" valueComputed="(SELECT ID FROM role WHERE name='ADMIN')"></column>
+		</insert>
+	</changeSet>
+	
+	<changeSet id="4" author="lvm444">
+		<insert tableName="user">
+			<column name="name">USER</column>
+			<column name="password">123</column>
+			<column name="active">true</column>
+			<column name="role" valueComputed="(SELECT ID FROM role WHERE name='USER')"></column>
+		</insert>
+	</changeSet>
+
+</databaseChangeLog>
