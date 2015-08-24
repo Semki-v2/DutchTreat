@@ -17,7 +17,7 @@ angular.module("Eventos")
 	};
 	$scope.addEvento = function() {
 		EventosService.addEvento($scope.evento);
-		$location.path('/events');
+		$location.path('events');
 	};
 })
 
@@ -26,7 +26,7 @@ angular.module("Eventos")
 	$scope.evento = EventosService.getEvento($routeParams.id);
 	$scope.editEvento = function() {
 		EventosService.updateEvento($scope.evento);
-		$location.path('/events');
+		$location.path('events');
 	};
 })
 

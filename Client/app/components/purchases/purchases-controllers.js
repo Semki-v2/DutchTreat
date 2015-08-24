@@ -17,7 +17,7 @@ angular.module("Purchases")
 	};
 	$scope.addPurchase = function() {
 		PurchaseService.addPurchase($scope.purchase);
-		$location.path('/events/' + event_id);
+		$location.path('events/' + event_id);
 	};
 })
 
@@ -34,6 +34,6 @@ angular.module("Purchases")
 
 	$scope.editPurchase = function() {
 		PurchaseService.updatePurchase($scope.purchase);
-		$location.path('/events/' + event_id);
+		$location.path('events/' + event_id);
 	};
 });

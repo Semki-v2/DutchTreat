@@ -28,7 +28,7 @@ angular.module("Transfers")
 	};
 	$scope.addTransfer = function() {
 		TransferService.addTransfer($scope.transfer);
-		$location.path("/events/" + event_id + "/transfers");
+		$location.path("events/" + event_id + "/transfers");
 	};
 })
 
@@ -45,6 +45,6 @@ angular.module("Transfers")
 
 	$scope.editTransfer = function() {
 		TransferService.updateTransfer($scope.transfer);
-		$location.path("/events/" + event_id + "/transfers");
+		$location.path("events/" + event_id + "/transfers");
 	};
 });

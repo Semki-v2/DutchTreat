@@ -4,7 +4,7 @@
 <!--[if IE 8]>         <html lang="en" ng-app="semki.DutchTreat" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en" ng-app="semki.DutchTreat" class="no-js"> <!--<![endif]-->
 <head>
-  <base href="/">
+  <base href="${indexBaseDir}"><!--[if lte IE 6]></base><![endif]-->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Складщина</title>
@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css">
   <link rel="stylesheet" href="app.css">
   <link rel="stylesheet" href="styles/tables.css">
+  <link rel="icon" href="favicon.ico">
+  <link rel="shortcut icon" href="favicon.ico">
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
@@ -30,13 +32,13 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="/">Складщина</a>
+              <a class="navbar-brand" href=".">Складщина</a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav" bs-nav>
-                  <li ng-class="{active: $path().match('^/events')}"><a href="/">События<span class="sr-only">(current)</span></a></li>
+                  <li ng-class="{active: $path().match('^/events')}"><a href=".">События<span class="sr-only">(current)</span></a></li>
               </ul>
           </div>
       </div>

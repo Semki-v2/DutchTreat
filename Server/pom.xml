@@ -143,19 +143,23 @@
 		<finalName>dutch-treat</finalName>
 
 		<resources>
-<!-- 			<resource> -->
-<!-- 				<directory>/resources</directory> -->
-<!-- 				<filtering>true</filtering> -->
-<!-- 				<includes> -->
-<!-- 					<include>log4j.properties</include> -->
-<!-- 				</includes> -->
-<!-- 			</resource> -->
+			<!-- <resource> -->
+			<!-- <directory>/resources</directory> -->
+			<!-- <filtering>true</filtering> -->
+			<!-- <includes> -->
+			<!-- <include>log4j.properties</include> -->
+			<!-- </includes> -->
+			<!-- </resource> -->
 			<resource>
 				<directory>./src/main/resources</directory>
 				<filtering>true</filtering>
 			</resource>
+			<!-- <resource> -->
+			<!-- <directory>${basedir}/../Client/app</directory> -->
+			<!-- <targetPath>client</targetPath> -->
+			<!-- </resource> -->
 		</resources>
-		
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -167,11 +171,33 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>${basedir}/../Client/app</directory>
+							<filtering>false</filtering>
+							<exclude>index.html</exclude>
+						</resource>
+						<resource>
+							<directory>${basedir}/../Client/app</directory>
+							<filtering>true</filtering>
+							<include>index.html</include>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
 		</plugins>
 
 	</build>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<indexBaseDir>/dutch-treat/app/</indexBaseDir>
 	</properties>
 </project>
