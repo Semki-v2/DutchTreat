@@ -1,8 +1,20 @@
 "use strict";
 
-angular.module("Eventos")
+angular.module("Eventos", ["ngResource"])
+	.factory("EventosRest", function($resource) {
+		return $resource("api/eventos/:eventId", {id: "@id"}, {
+			update: {method: "POST"}
+		});
+	})
+//angular.module("Eventos", ["ngResource"])
+	.service("EventosService", function (ParticipantService, EventosRest) {
+		return {
+			getEventos: function () { return EventosRest.query(); },
+			getEvento : function (id) { return EventosRest.get({eventId : id}); } 
+		}
+	})
 
-	.service("EventosService", function (ParticipantService) {
+	.service("EventosServiceOLD", function (ParticipantService, EventosRest) {
 		var eventosList =  [
 	        {id: 1, name: "Байкал", startDate: "2015-07-19", finishDate: "2015-07-26", participants: [] },
 	        {id: 2, name: "Хакатон", startDate: "2015-08-09", participants: [] }
