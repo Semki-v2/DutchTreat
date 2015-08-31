@@ -2,21 +2,19 @@
 
 angular.module("Eventos")
 
-.controller('EventosCtrl', function($scope, $rootScope, $location,$http,EventosService,EventosServiceOLD) {
+.controller('EventosCtrl', function($scope, $rootScope, $location,$http,EventosService) {
 	$rootScope.$path = $location.path.bind($location);
 	$scope.eventos = EventosService.getEventos();
 	$scope.deleteEvento = function(evento) {
-		EventosServiceOLD.deleteEvento(evento);
+		EventosService.deleteEvento(evento);
 	}
 })
 
-.controller('EventoNewCtrl', function($scope, $rootScope, $location,$http, EventosServiceOLD) {
+.controller('EventoNewCtrl', function($scope, $rootScope, $location,$http, EventosService) {
 	$rootScope.$path = $location.path.bind($location);
-	$scope.evento = {
-		participants: []
-	};
+	$scope.evento = EventosService.createEvento();
 	$scope.addEvento = function() {
-		EventosServiceOLD.addEvento($scope.evento);
+		EventosService.addEvento($scope.evento);
 		$location.path('events');
 	};
 })

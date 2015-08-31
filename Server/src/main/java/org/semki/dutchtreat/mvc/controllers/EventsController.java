@@ -1,17 +1,11 @@
 package org.semki.dutchtreat.mvc.controllers;
 
-import java.io.Console;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import org.hibernate.SessionFactory;
 import org.semki.dutchtreat.DAO.EventoDAO;
-import org.semki.dutchtreat.DAO.EventoDAOImpl;
 import org.semki.dutchtreat.entity.Evento;
 import org.semki.dutchtreat.mvc.dto.Event;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,22 +57,21 @@ public class EventsController {
 	}
 	
 	@RequestMapping(value = "/eventos",method = RequestMethod.POST)
-	public void saveOrUpdate(@RequestBody Event eDTO)
+	public void create(@RequestBody Event eDTO)
 	{
-		Evento entity = null;
-		if (eDTO.id==null)
-		{
-			entity = new Evento();
-			
-			entity.setName(eDTO.name);
-			entity.setId(eDTO.id);
-		}
-		else
-		{
-			entity = dao.get(eDTO.id);
-		}
+		Evento entity = new Evento();
+		entity.setName(eDTO.name);
+		entity.setId(eDTO.id);
+
+		dao.save(entity);
+	}
+	
+	@RequestMapping(value = "/eventos/{eventId}",method = RequestMethod.POST)
+	public void update(@RequestBody Event eDTO, @PathVariable Integer eventId)
+	{
+		Evento entity = dao.get(eventId);
+		entity.setName(eDTO.name);
 		
-		
-		dao.saveOrUpdate(entity);
+		dao.update(entity);
 	}
 }

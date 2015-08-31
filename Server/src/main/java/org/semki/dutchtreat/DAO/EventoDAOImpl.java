@@ -24,15 +24,20 @@ public class EventoDAOImpl implements EventoDAO {
 		this.sessionFactory = session;
 	}
 	
+	//TODO move to basic DAO
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static <T> List<T> safeCastList(List rawList) {
+		return (List<T>) rawList;
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.semki.dutchtreat.DAO.EventoDAO#list()
 	 */
 	@Override
 	public List<Evento> list(){
-		@SuppressWarnings("unchecked")
-        List<Evento> listEvents = (List<Evento>) sessionFactory.getCurrentSession()
+		List<Evento> listEvents = safeCastList(sessionFactory.getCurrentSession()
                 .createCriteria(Evento.class)
-                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list());
  
         return listEvents;
 	}
@@ -42,14 +47,20 @@ public class EventoDAOImpl implements EventoDAO {
 	 */
 	@Override
 	@Transactional
-	public void saveOrUpdate(Evento e)
+	public void save(Evento e)
 	{
 		//sessionFactory.getCurrentSession().saveOrUpdate(e);
 		
 		Session se = sessionFactory.getCurrentSession();
-		
-		se.saveOrUpdate(e);
+		se.save(e);
 	}
+	
+	@Override
+	@Transactional
+	public void update(Evento e) {
+		Session se = sessionFactory.getCurrentSession();
+		se.update(e);
+	};
 	
 	/* (non-Javadoc)
 	 * @see org.semki.dutchtreat.DAO.EventoDAO#delte(int)
@@ -72,10 +83,9 @@ public class EventoDAOImpl implements EventoDAO {
 	public Evento get(int id)
 	{
 		Criteria cr = this.sessionFactory.getCurrentSession().createCriteria(Evento.class)
-		.add(Restrictions.eq("ID", id));
+		.add(Restrictions.eq("id", id));
 		
-	 	@SuppressWarnings("unchecked")
-		List<Evento> result = ((List<Evento>)cr.list());
+	 	List<Evento> result = safeCastList(cr.list());
 	 	
 	 	
 	 	if ((result!=null)&&(!result.isEmpty()))

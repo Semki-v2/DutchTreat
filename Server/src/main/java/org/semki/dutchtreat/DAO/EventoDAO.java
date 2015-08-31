@@ -8,7 +8,9 @@ public interface EventoDAO {
 
 	public abstract List<Evento> list();
 
-	public abstract void saveOrUpdate(Evento e);
+	public abstract void save(Evento e);
+	
+	public abstract void update(Evento e);
 
 	public abstract void delete(int id);
 
