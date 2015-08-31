@@ -14,7 +14,7 @@ angular.module("Eventos", ["ngResource"])
 		}
 	})
 
-	.service("EventosServiceOLD", function (ParticipantService, EventosRest) {
+	.service("EventosServiceOLD", function (ParticipantService, EventosRest,$http) {
 		var eventosList =  [
 	        {id: 1, name: "Байкал", startDate: "2015-07-19", finishDate: "2015-07-26", participants: [] },
 	        {id: 2, name: "Хакатон", startDate: "2015-08-09", participants: [] }
@@ -24,7 +24,7 @@ angular.module("Eventos", ["ngResource"])
 				return eventosList;
 			},
 			addEvento : function (evento) {
-				var maxId = eventosList.reduce(function(a, b) { 
+				/*var maxId = eventosList.reduce(function(a, b) { 
 					return a > b.id ? a: b.id;
 				}, 0);
 				evento.id = maxId+1;
@@ -32,7 +32,9 @@ angular.module("Eventos", ["ngResource"])
 				evento.participants.map(function(participant) {
 					participant.event_id = evento.id;
 					ParticipantService.addParticipant(participant);
-				});
+				});*/
+				
+				$http.post("/dutch-treat/app/api/eventosnew",evento);
 			},
 			updateEvento : function ( evento ) {
 				var oldParticipants = ParticipantService.getParticipants(evento.id);

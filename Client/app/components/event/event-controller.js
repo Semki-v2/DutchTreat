@@ -10,13 +10,13 @@ angular.module("Eventos")
 	}
 })
 
-.controller('EventoNewCtrl', function($scope, $rootScope, $location, EventosService) {
+.controller('EventoNewCtrl', function($scope, $rootScope, $location,$http, EventosServiceOLD) {
 	$rootScope.$path = $location.path.bind($location);
 	$scope.evento = {
 		participants: []
 	};
 	$scope.addEvento = function() {
-		EventosService.addEvento($scope.evento);
+		EventosServiceOLD.addEvento($scope.evento);
 		$location.path('events');
 	};
 })

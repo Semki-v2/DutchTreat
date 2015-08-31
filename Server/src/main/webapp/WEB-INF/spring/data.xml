@@ -51,7 +51,7 @@
 	<bean id='sessionFactory'
 		class='org.springframework.orm.hibernate4.LocalSessionFactoryBean'>
 		<property name='dataSource' ref='dataSource' />
-		<property name='packagesToScan' value='net.de1mos.jbox.entities' />
+		<property name='packagesToScan' value='org.semki.dutchtreat.entity' />
 		<property name='hibernateProperties'>
 			<props>
 				<!-- <prop key='hibernate.dialect'>org.hibernate.dialect.PostgreSQLDialect</prop> -->
@@ -71,8 +71,4 @@
 		<property name="contexts" value="production" />
 	</bean>
 
-	<!-- <bean xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
-		" id="initialSetupBean" class="pro.sisit.etalon.monitoring.utils.InitialSetup" 
-		> </bean> -->
 </beans>

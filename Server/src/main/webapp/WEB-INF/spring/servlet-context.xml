@@ -13,7 +13,7 @@
 	<!-- Разрешаем использование аннотаций Spring MVC (то есть @Controller и.т.д) -->
 	<mvc:annotation-driven />
 	
-	<context:component-scan base-package="org.semki.dutchtreat" />
+	<context:component-scan base-package="org.semki.dutchtreat.DAO" />
 	
 	
 	<tx:annotation-driven/>
