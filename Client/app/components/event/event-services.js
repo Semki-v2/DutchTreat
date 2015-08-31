@@ -21,7 +21,9 @@ angular.module("Eventos", ["ngResource"])
 	      ];
 		return {
 			getEventos : function () {
-				return eventosList;
+				/*return eventosList;*/
+
+				$http.get("/dutch-treat/app/api/eventos")
 			},
 			addEvento : function (evento) {
 				/*var maxId = eventosList.reduce(function(a, b) { 
@@ -34,7 +36,7 @@ angular.module("Eventos", ["ngResource"])
 					ParticipantService.addParticipant(participant);
 				});*/
 				
-				$http.post("/dutch-treat/app/api/eventosnew",evento);
+				$http.post("/dutch-treat/app/api/eventos",evento);
 			},
 			updateEvento : function ( evento ) {
 				var oldParticipants = ParticipantService.getParticipants(evento.id);
@@ -52,18 +54,19 @@ angular.module("Eventos", ["ngResource"])
 				return evento;
 			},
 			getEvento : function ( id ) {
-				var evento = eventosList.reduce(function(a, b) { 
+				/*var evento = eventosList.reduce(function(a, b) { 
 					return b.id == id ? b: a;
 				}, {id : 0});
-				evento.participants = ParticipantService.getParticipants(evento.id);
-				return evento;
+				evento.participants = ParticipantService.getParticipants(evento.id);*/
+				return $http.get("/dutch-treat/app/api/eventos/"+id);
 			},
 			deleteEvento : function ( evento ) {
-				var index = eventosList.indexOf(evento);
+				/*var index = eventosList.indexOf(evento);
 				evento.participants.map(function(participant) {
 					ParticipantService.deleteParticipant(participant.id);
 				});
-				eventosList.splice(index, 1);
+				eventosList.splice(index, 1);*/
+				$http.delete("/dutch-treat/app/api/eventos/"+evento.id);
 			}
 		};
 	});

@@ -2,11 +2,11 @@
 
 angular.module("Eventos")
 
-.controller('EventosCtrl', function($scope, $rootScope, $location, EventosService) {
+.controller('EventosCtrl', function($scope, $rootScope, $location,$http,EventosService,EventosServiceOLD) {
 	$rootScope.$path = $location.path.bind($location);
 	$scope.eventos = EventosService.getEventos();
 	$scope.deleteEvento = function(evento) {
-		EventosService.deleteEvento(evento);
+		EventosServiceOLD.deleteEvento(evento);
 	}
 })
 

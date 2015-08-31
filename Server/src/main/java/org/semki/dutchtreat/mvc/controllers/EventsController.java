@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.semki.dutchtreat.DAO.EventoDAO;
 import org.semki.dutchtreat.DAO.EventoDAOImpl;
 import org.semki.dutchtreat.entity.Evento;
 import org.semki.dutchtreat.mvc.dto.Event;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class EventsController {
 	
 	@Autowired
-	SessionFactory session;
+	EventoDAO dao;
 	
 	static List<Event> events = new ArrayList<>();
 	static {
@@ -40,46 +41,43 @@ public class EventsController {
 	@RequestMapping("/eventos")
 	public List<Event> getEvents() {
 		
-		EventoDAOImpl dao = new EventoDAOImpl(session);
+		//EventoDAOImpl dao = new EventoDAOImpl(session);
 		
 		List<Evento> list = dao.list();
 		List<Event> listDTO = new ArrayList<Event>();
 		for (Evento en : list) {
-			Event dto = new Event();
-			
-			dto.name = en.getName();
-			dto.id = en.getId();
-			
-			listDTO.add(dto);
+			listDTO.add(new Event(en));
 		}
 		
 		return listDTO;
 	}
 	
-	@RequestMapping("/eventos/{eventId}")
+	@RequestMapping(value = "/eventos/{eventId}", method = RequestMethod.GET)
 	public Event getEventById(@PathVariable Integer eventId) {
-		Event result = null;
-		for (Event e : events) {
-			if (e.id == eventId) {
-				result = e;
-			}
-		}
-		
-		return result;
+		return new Event(dao.get(eventId));
 	}
 	
-	@RequestMapping(value = "/eventosnew",method = RequestMethod.POST)
-	public void createNew(@RequestBody Event eDTO)
+	@RequestMapping(value = "/eventos/{eventId}", method = RequestMethod.DELETE)
+	public void deleteById(@PathVariable Integer eventId) {
+		dao.delete(eventId);
+	}
+	
+	@RequestMapping(value = "/eventos",method = RequestMethod.POST)
+	public void saveOrUpdate(@RequestBody Event eDTO)
 	{
-		final Logger logger = LoggerFactory.getLogger(EventsController.class);
-		EventoDAOImpl dao = new EventoDAOImpl(session);
+		Evento entity = null;
+		if (eDTO.id==null)
+		{
+			entity = new Evento();
+			
+			entity.setName(eDTO.name);
+			entity.setId(eDTO.id);
+		}
+		else
+		{
+			entity = dao.get(eDTO.id);
+		}
 		
-		Evento entity = new Evento();
-		
-		entity.setName(eDTO.name);
-		entity.setId(eDTO.id);
-		
-		logger.debug("create new "+eDTO.name);
 		
 		dao.saveOrUpdate(entity);
 	}
