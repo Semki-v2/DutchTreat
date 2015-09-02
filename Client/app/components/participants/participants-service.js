@@ -1,8 +1,10 @@
 'use strict';
 
 angular.module('Participants', [])
-
-	.service('ParticipantService', function () {
+	.factory("ParticipantsRest", function($resource) {
+		return $resource("/dutch-treat/app/api/participants/:id", {id: "@id"});
+	})
+	.service('ParticipantService', function (ParticipantsRest) {
 		var participantsList =  [
 			{id:1, name: "Вова", event_id: 1},
 			{id:2, name: "Денис", event_id: 1},
@@ -18,7 +20,10 @@ angular.module('Participants', [])
 	      ];
 		return {
 			getParticipants : function (event_id) {
-				return participantsList.filter(function(participant) {return participant.event_id == event_id} );
+				//return participantsList;
+				//.filter(function(participant) {return participant.event_id == event_id} );
+
+				return ParticipantsRest.get({id:event_id});
 			},
 			addParticipant : function (participant) {
 				var maxId = participantsList.reduce(function(a, b, c) { 

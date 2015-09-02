@@ -8,6 +8,8 @@ public class ParticipantDTO {
 	
 	public String name;
 	
+	public Long event_id;
+	
 	public Participant convertToEntity() {
 		Participant entity = new Participant();
 		entity.setId(id);
@@ -19,6 +21,7 @@ public class ParticipantDTO {
 		ParticipantDTO dto = new ParticipantDTO();
 		dto.id = participant.getId();
 		dto.name = participant.getName();
+		dto.event_id = participant.getEvento().getId();
 		return dto;
 	}
 }
