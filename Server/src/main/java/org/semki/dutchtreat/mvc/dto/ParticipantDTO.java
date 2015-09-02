@@ -14,4 +14,11 @@ public class ParticipantDTO {
 		entity.setName(name);
 		return entity;
 	}
+
+	public static ParticipantDTO convertToDTO(Participant participant) {
+		ParticipantDTO dto = new ParticipantDTO();
+		dto.id = participant.getId();
+		dto.name = participant.getName();
+		return dto;
+	}
 }

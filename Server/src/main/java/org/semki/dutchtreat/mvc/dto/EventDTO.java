@@ -1,5 +1,6 @@
 package org.semki.dutchtreat.mvc.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.semki.dutchtreat.entity.Evento;
@@ -9,7 +10,7 @@ public class EventDTO {
 	
 	public String name;
 	
-	public List<ParticipantDTO> participants;
+	public List<ParticipantDTO> participants = new ArrayList<>();
 	
 	public EventDTO()
 	{

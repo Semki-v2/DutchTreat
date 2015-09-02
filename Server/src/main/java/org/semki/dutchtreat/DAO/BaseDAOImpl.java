@@ -2,6 +2,7 @@ package org.semki.dutchtreat.DAO;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,6 +22,10 @@ public abstract class BaseDAOImpl<Entity extends PersistentEntity> implements Ba
 	
 	protected Session getSession() {
 		return sessionFactory.getCurrentSession();
+	}
+	
+	protected Criteria createCriteria() {
+		return getSession().createCriteria(type);
 	}
 	
 	@Override

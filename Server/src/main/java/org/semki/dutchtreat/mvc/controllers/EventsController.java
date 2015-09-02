@@ -34,7 +34,12 @@ public class EventsController {
 		List<Evento> list = dao.list();
 		List<EventDTO> listDTO = new ArrayList<EventDTO>();
 		for (Evento en : list) {
-			listDTO.add(new EventDTO(en));
+			EventDTO eventDTO = new EventDTO(en);
+			List<Participant> participants = paricipantDAO.getByEvent(en);
+			for (Participant participant : participants) {
+				eventDTO.participants.add(ParticipantDTO.convertToDTO(participant));
+			}
+			listDTO.add(eventDTO);
 		}
 		
 		return listDTO;
@@ -43,7 +48,13 @@ public class EventsController {
 	@RequestMapping(value = "/eventos/{eventId}", method = RequestMethod.GET)
 	@Transactional
 	public EventDTO getEventById(@PathVariable Long eventId) {
-		return new EventDTO(dao.get(eventId));
+		Evento evento = dao.get(eventId);
+		EventDTO eventDTO = new EventDTO(evento);
+		List<Participant> participants = paricipantDAO.getByEvent(evento);
+		for (Participant participant : participants) {
+			eventDTO.participants.add(ParticipantDTO.convertToDTO(participant));
+		}
+		return eventDTO;
 	}
 	
 	@RequestMapping(value = "/eventos/{eventId}", method = RequestMethod.DELETE)
@@ -61,6 +72,7 @@ public class EventsController {
 		
 		for (ParticipantDTO participantDTO : eDTO.participants) {
 			Participant participant = participantDTO.convertToEntity();
+			participant.setEvento(entity);
 			paricipantDAO.save(participant);
 		}
 	}
@@ -72,5 +84,18 @@ public class EventsController {
 		Evento entity = dao.get(eventId);
 		entity.setName(eDTO.name);
 		dao.update(entity);
+		
+		for (ParticipantDTO participantDTO : eDTO.participants) {
+			Participant participant;
+			if (participantDTO.id != null) {
+				participant = paricipantDAO.get(participantDTO.id);
+				participant.setName(participantDTO.name);
+			}
+			else {
+				participant = participantDTO.convertToEntity();
+				participant.setEvento(entity);
+			}
+			paricipantDAO.save(participant);
+		}
 	}
 }

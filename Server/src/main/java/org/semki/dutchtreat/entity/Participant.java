@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Participant")
+@Table(name = "participants")
 public class Participant implements PersistentEntity {
 
 	@Id
@@ -21,7 +21,7 @@ public class Participant implements PersistentEntity {
 	private String name;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "evento_id", nullable = false, table = "Evento")
+	@JoinColumn(name = "evento_id", nullable = false)
 	private Evento evento;
 	
 	@Override

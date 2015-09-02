@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Evento")
+@Table(name = "eventos")
 public class Evento implements PersistentEntity {
 	
 	@Id
