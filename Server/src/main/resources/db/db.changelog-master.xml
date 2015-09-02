@@ -61,8 +61,8 @@
 	</changeSet>
 	
 	<changeSet id="5" author="lvm444">
-		<createTable tableName="Evento">
-			<column name="id" type="int" autoIncrement="true">
+		<createTable tableName="eventos">
+			<column name="id" type="bigint" autoIncrement="true">
 				<constraints primaryKey="true" nullable="false" />
 			</column>
 			<column name="name" type="varchar(500)">
@@ -71,6 +71,25 @@
 			<column name="startDate" type="Date" />
 			<column name="finishDate" type="Date" />
 		</createTable>
+	</changeSet>
+	
+	<changeSet id="create participants" author="de1mos">
+		<createTable tableName="participants">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="name" type="varchar(500)">
+				<constraints nullable="false" />
+			</column>
+			<column name="evento_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint baseColumnNames="evento_id"
+			baseTableName="participants" constraintName="paricipants_evento_id_fk"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableName="eventos" />
 	</changeSet>
 
 </databaseChangeLog>

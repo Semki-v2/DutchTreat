@@ -10,26 +10,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Evento")
-public class Evento {
-	
-	private int Id;
-	private String name;
-	private Date startDate;
-	private Date finishDate;
+public class Evento implements PersistentEntity {
 	
 	@Id
 	@GeneratedValue
 	@Column(name="id")
-	public int getId() {
-		return Id;
-	}
-	public void setId(Integer id) {
-		
-		if(id!= null)
-		{
-			this.Id = id;
-		}
-	}
+	private Long id;
+	
+	private String name;
+	private Date startDate;
+	private Date finishDate;
 	
 	@Column(name="name")
 	public String getName() {
@@ -53,6 +43,17 @@ public class Evento {
 	}
 	public void setFinishDate(Date finishDate) {
 		this.finishDate = finishDate;
+	}
+	
+	@Override
+	public Long getId() {
+		return id;
+	}
+	@Override
+	public void setId(Long id) {
+		if (id != null) {
+			this.id = id;
+		}
 	}
 	
 }
