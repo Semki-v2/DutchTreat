@@ -92,7 +92,10 @@ public class EventsController {
 				participant.setName(participantDTO.name);
 			}
 			else {
-				participant = participantDTO.convertToEntity();
+				participant = paricipantDAO.getByEventAndName(entity, participantDTO.name);
+				if (participant == null) {
+					participant = participantDTO.convertToEntity();
+				}
 				participant.setEvento(entity);
 			}
 			paricipantDAO.save(participant);

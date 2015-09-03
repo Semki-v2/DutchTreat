@@ -22,4 +22,9 @@ public class ParticipantDAOImpl extends BaseDAOImpl<Participant> implements Part
 		return ObjectsSupport.safeCastList(createCriteria().add(Restrictions.eq("evento", en)).list());
 	}
 
+	@Override
+	public Participant getByEventAndName(Evento event, String name) {
+		return (Participant) createCriteria().add(Restrictions.eq("evento", event)).add(Restrictions.eq("name", name)).uniqueResult();
+	}
+
 }
