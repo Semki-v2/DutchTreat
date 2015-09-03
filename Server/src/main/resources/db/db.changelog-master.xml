@@ -91,5 +91,43 @@
 			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
 			referencedColumnNames="id" referencedTableName="eventos" />
 	</changeSet>
+	
+	<changeSet id="create transfers" author="de1mos">
+		<createTable tableName="transfers">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="amount" type="numeric">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="varchar(500)">
+				<constraints nullable="true" />
+			</column>
+			<column name="evento_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="sender_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="receiver_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint baseColumnNames="evento_id"
+			baseTableName="transfers" constraintName="transfers_evento_id_fk"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableName="eventos" />
+			
+		<addForeignKeyConstraint baseColumnNames="sender_id"
+			baseTableName="transfers" constraintName="transfers_sender_id_fk"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableName="participants" />
+			
+		<addForeignKeyConstraint baseColumnNames="receiver_id"
+			baseTableName="transfers" constraintName="transfers_receiver_id_fk"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="id" referencedTableName="participants" />
+	</changeSet>
 
 </databaseChangeLog>

@@ -27,4 +27,12 @@ public class ParticipantDAOImpl extends BaseDAOImpl<Participant> implements Part
 		return (Participant) createCriteria().add(Restrictions.eq("evento", event)).add(Restrictions.eq("name", name)).uniqueResult();
 	}
 
+	@Override
+	public void deleteByEvent(Evento event) {
+		List<Participant> participants = getByEvent(event);
+		for (Participant participant : participants) {
+			delete(participant.getId());
+		}
+	}
+
 }

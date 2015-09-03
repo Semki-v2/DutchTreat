@@ -9,7 +9,6 @@ import org.semki.dutchtreat.DAO.EventoDAO;
 import org.semki.dutchtreat.DAO.ParticipantDAO;
 import org.semki.dutchtreat.entity.Evento;
 import org.semki.dutchtreat.entity.Participant;
-import org.semki.dutchtreat.mvc.dto.EventDTO;
 import org.semki.dutchtreat.mvc.dto.ParticipantDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

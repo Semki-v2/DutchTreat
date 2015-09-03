@@ -11,4 +11,6 @@ public interface ParticipantDAO extends BaseDAO<Participant> {
 	
 	Participant getByEventAndName(Evento event, String name);
 
+	void deleteByEvent(Evento event);
+
 }

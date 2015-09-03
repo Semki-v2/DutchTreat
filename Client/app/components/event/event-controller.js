@@ -6,7 +6,9 @@ angular.module("Eventos")
 	$rootScope.$path = $location.path.bind($location);
 	$scope.eventos = EventosService.getEventos();
 	$scope.deleteEvento = function(evento) {
-		EventosService.deleteEvento(evento);
+		EventosService.deleteEvento(evento).then(function() {
+			$scope.eventos = EventosService.getEventos();
+		});
 	}
 })
 
@@ -14,8 +16,9 @@ angular.module("Eventos")
 	$rootScope.$path = $location.path.bind($location);
 	$scope.evento = EventosService.createEvento();
 	$scope.addEvento = function() {
-		EventosService.addEvento($scope.evento);
-		$location.path('events');
+		EventosService.addEvento($scope.evento).then(function() {
+			$location.path('events');
+		});		
 	};
 })
 
@@ -23,8 +26,9 @@ angular.module("Eventos")
 	$rootScope.$path = $location.path.bind($location);
 	$scope.evento = EventosService.getEvento($routeParams.id);
 	$scope.editEvento = function() {
-		EventosService.updateEvento($scope.evento);
-		$location.path('events');
+		EventosService.updateEvento($scope.evento).then(function() {
+			$location.path('events');
+		});		
 	};
 })
 

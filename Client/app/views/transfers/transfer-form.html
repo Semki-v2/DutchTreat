@@ -1,7 +1,7 @@
 <div class="form-group">
   <label for="sender" class="control-label col-sm-1">Отправитель: </label>
   <div class="col-sm-6">
-    <select id="sender" class="form-control" ng-model="transfer.sender" required ng-options="participant.name for participant in participants track by participant.id" convert-to-number >
+    <select id="sender" class="form-control" ng-model="transfer.sender" required ng-options="participant.name for participant in evento.participants track by participant.id" convert-to-number >
     </select>
   </div>
 </div>
@@ -13,9 +13,15 @@
     </div>
 </div>
 <div class="form-group">
+    <label for="description" class="control-label col-sm-1">Описание: </label>
+    <div class="col-sm-6">
+      <input type="text" ng-model="transfer.description" class="form-control" id="description" />
+    </div>
+</div>
+<div class="form-group">
   <label for="receiver" class="control-label col-sm-1">Получатель: </label>
   <div class="col-sm-6">
-    <select class="form-control" ng-model="transfer.receiver" id="receiver" required ng-options="participant.name for participant in participants track by participant.id" convert-to-number>
+    <select class="form-control" ng-model="transfer.receiver" id="receiver" required ng-options="participant.name for participant in evento.participants track by participant.id" convert-to-number>
     </select>
   </div>
 </div>

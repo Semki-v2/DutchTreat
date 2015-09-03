@@ -60,6 +60,8 @@ public class EventsController {
 	@RequestMapping(value = "/eventos/{eventId}", method = RequestMethod.DELETE)
 	@Transactional
 	public void deleteById(@PathVariable Long eventId) {
+		Evento event = dao.get(eventId);
+		paricipantDAO.deleteByEvent(event);
 		dao.delete(eventId);
 	}
 	

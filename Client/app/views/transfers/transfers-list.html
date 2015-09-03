@@ -5,6 +5,7 @@
       <th>Отправитель</th>
       <th>Сумма</th>
       <th>Получатель</th>
+      <th>Описание</th>
       <th class="col-sm-1"></th>
     </tr>
 
@@ -14,6 +15,7 @@
       <td>{{transfer.sender.name}}</td>
       <td>{{transfer.amount | number:2}}</td>
       <td>{{transfer.receiver.name}}</td>
+      <td>{{transfer.description}}</td>
       <td>
       	<div class="btn-group pull-right btn-group-hover">
             <a href="events/{{evento.id}}/transfers/{{transfer.id}}/edit" class="btn btn-xs btn-warning">
