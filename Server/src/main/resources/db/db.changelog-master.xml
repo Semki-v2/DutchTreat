@@ -50,7 +50,7 @@
 			<column name="role" valueComputed="(SELECT ID FROM role WHERE name='ADMIN')"></column>
 		</insert>
 	</changeSet>
-	
+
 	<changeSet id="4" author="lvm444">
 		<insert tableName="user">
 			<column name="name">USER</column>
@@ -59,7 +59,7 @@
 			<column name="role" valueComputed="(SELECT ID FROM role WHERE name='USER')"></column>
 		</insert>
 	</changeSet>
-	
+
 	<changeSet id="5" author="lvm444">
 		<createTable tableName="eventos">
 			<column name="id" type="bigint" autoIncrement="true">
@@ -72,7 +72,7 @@
 			<column name="finishDate" type="Date" />
 		</createTable>
 	</changeSet>
-	
+
 	<changeSet id="create participants" author="de1mos">
 		<createTable tableName="participants">
 			<column name="id" type="bigint" autoIncrement="true">
@@ -85,13 +85,13 @@
 				<constraints nullable="false" />
 			</column>
 		</createTable>
-		
+
 		<addForeignKeyConstraint baseColumnNames="evento_id"
 			baseTableName="participants" constraintName="paricipants_evento_id_fk"
-			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-			referencedColumnNames="id" referencedTableName="eventos" />
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="eventos" />
 	</changeSet>
-	
+
 	<changeSet id="create transfers" author="de1mos">
 		<createTable tableName="transfers">
 			<column name="id" type="bigint" autoIncrement="true">
@@ -113,21 +113,75 @@
 				<constraints nullable="false" />
 			</column>
 		</createTable>
-		
+
 		<addForeignKeyConstraint baseColumnNames="evento_id"
 			baseTableName="transfers" constraintName="transfers_evento_id_fk"
-			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-			referencedColumnNames="id" referencedTableName="eventos" />
-			
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="eventos" />
+
 		<addForeignKeyConstraint baseColumnNames="sender_id"
 			baseTableName="transfers" constraintName="transfers_sender_id_fk"
-			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-			referencedColumnNames="id" referencedTableName="participants" />
-			
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="participants" />
+
 		<addForeignKeyConstraint baseColumnNames="receiver_id"
 			baseTableName="transfers" constraintName="transfers_receiver_id_fk"
-			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-			referencedColumnNames="id" referencedTableName="participants" />
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="participants" />
+	</changeSet>
+
+	<changeSet id="create purchases" author="de1mos">
+		<createTable tableName="purchases">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="amount" type="numeric">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="varchar(500)">
+				<constraints nullable="true" />
+			</column>
+			<column name="evento_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="buyer_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint baseColumnNames="evento_id"
+			baseTableName="purchases" constraintName="purchases_evento_id_fk"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="eventos" />
+
+		<addForeignKeyConstraint baseColumnNames="buyer_id"
+			baseTableName="purchases" constraintName="purchases_buyer_id_fk"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="participants" />
+	</changeSet>
+
+	<changeSet id="create purchases to consumers relation"
+		author="de1mos">
+		<createTable tableName="purchase_consumer">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="purchase_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="consumer_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="purchase_id"
+			baseTableName="purchase_consumer" constraintName="purchase_consumer_evento_id_fk"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="purchases" />
+
+		<addForeignKeyConstraint baseColumnNames="consumer_id"
+			baseTableName="purchase_consumer" constraintName="purchase_consumer_consumer_id_fk"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="participants" />
 	</changeSet>
 
 </databaseChangeLog>

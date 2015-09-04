@@ -38,7 +38,8 @@ angular.module("Eventos")
 	$scope.purchases = PurchaseService.getPurchases($routeParams.id);
 
 	$scope.deletePurchase = function(purchase) {
-		PurchaseService.deletePurchase(purchase);
-		$scope.purchases = PurchaseService.getPurchases($routeParams.id);
+		PurchaseService.deletePurchase(purchase).then(function() {
+			$scope.purchases = PurchaseService.getPurchases($routeParams.id);
+		});
 	}
 });

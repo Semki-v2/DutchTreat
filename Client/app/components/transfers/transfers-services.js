@@ -6,7 +6,7 @@ angular.module("Transfers")
 		return $resource("/dutch-treat/app/api/transfers/:id", {id: "@id"});
 	})
 
-	.service("TransferService", function (ParticipantService, TransfersRest) {
+	.service("TransferService", function (TransfersRest) {
 		return {
 			getTransfers : function (event_id) {
 				return TransfersRest.query({event_id: event_id});

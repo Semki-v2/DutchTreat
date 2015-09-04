@@ -1,7 +1,7 @@
 <div class="form-group">
   <label for="buyer" class="control-label col-sm-1">Покупатель: </label>
   <div class="col-sm-6">
-    <select id="buyer" class="form-control" ng-model="purchase.buyer" required ng-options="participant.name for participant in participants track by participant.id" convert-to-number >
+    <select id="buyer" class="form-control" ng-model="purchase.buyer" required ng-options="participant.name for participant in evento.participants track by participant.id" convert-to-number >
     </select>
   </div>
 </div>
@@ -21,7 +21,7 @@
 <div class="form-group">
   <label for="consumers" class="control-label col-sm-1">Потребители: </label>
   <div class="col-sm-6">
-    <select multiple class="form-control" ng-model="purchase.consumers" id="consumers" required ng-options="participant.name for participant in participants track by participant.id" convert-to-number>
+    <select multiple class="form-control" ng-model="purchase.consumers" id="consumers" required ng-options="participant.name for participant in evento.participants track by participant.id" convert-to-number>
       
     </select>
   </div>
