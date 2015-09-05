@@ -15,6 +15,7 @@
     "angular-resource": "~1.4.4",
     "angular-bootstrap": "~0.13.3",
     "bootstrap": "~3.3.5",
-    "ng-tags-input": "~3.0.0"
+    "ng-tags-input": "~3.0.0",
+    "bootswatch-dist": "cosmo"
   }
 }
