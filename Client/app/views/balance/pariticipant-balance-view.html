@@ -1,0 +1,31 @@
+<h1>Расчеты участника события {{evento.name}}</h1>
+<hr>
+<p class="lead">
+
+<div class="form-group">
+  <label for="target_participant" class="control-label col-sm-1">Участник: </label>
+  <div class="col-sm-6">
+    <select id="target_participant" class="form-control" ng-model="target_participant" required ng-options="participant.name for participant in evento.participants track by participant.id" convert-to-number ng-change="changeTargetParticipant()" >
+    </select>
+  </div>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <th>Сумма</th>
+        <th>Описание</th>
+        <th>Инициатор</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="record in calculation.records">
+            <td>{{record.amount | number:2}}</td>
+            <td>{{record.description}}</td>
+            <td>{{record.initiator.name}}</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+          <td>{{calculation.totalBalance}}</td>
+        </tr>
+      </tfoot>
+</table>

@@ -29,7 +29,7 @@ public Long id;
 		dto.event_id = p.getEvento().getId();
 		dto.buyer = ParticipantDTO.convertToDTO(p.getBuyer());
 		dto.consumers = new ArrayList<>();
-		for (PurchaseConsumer consumer : p.getConsumers()) {
+		for (PurchaseConsumer consumer : p.getPurchaseConsumers()) {
 			dto.consumers.add(ParticipantDTO.convertToDTO(consumer.getConsumer()));
 		}
 		return dto;

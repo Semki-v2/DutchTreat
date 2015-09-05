@@ -3,11 +3,12 @@
 angular.module("Eventos", ["Participants", "ngRoute", "Purchases", "ngResource"]);
 angular.module("Purchases", ["Participants"]);
 angular.module("Transfers", ["Participants"]);
+angular.module("Balance", ["Eventos"]);
 
 // Declare app level module which depends on views, and components
 angular.module("semki.DutchTreat", [
   "ngAnimate", "ngRoute","ngResource", "ui.bootstrap", "ngTagsInput",
-  "Eventos", "Purchases", "Transfers"])
+  "Eventos", "Purchases", "Transfers", "Balance"])
 
   .config(function($locationProvider, $routeProvider) {
 
@@ -49,6 +50,10 @@ angular.module("semki.DutchTreat", [
       .when("/events/:event_id/transfers/:id/edit", {
       	templateUrl: "views/transfers/transfer-edit.html",
       	controller: "TransferEditCtrl"
+      })
+      .when("/events/:event_id/balance", {
+        templateUrl: "views/balance/pariticipant-balance-view.html",
+        controller: "ParticipantBalanceCtrl"
       })
       .otherwise({
         redirectTo: "events/"

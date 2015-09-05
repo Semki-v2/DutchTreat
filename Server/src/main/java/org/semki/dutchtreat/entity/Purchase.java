@@ -2,9 +2,7 @@ package org.semki.dutchtreat.entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,7 +38,7 @@ public class Purchase implements PersistentEntity  {
 	private Participant buyer;
 	
 	@OneToMany(mappedBy="purchase")
-	private List<PurchaseConsumer> consumers = new ArrayList<>();
+	private List<PurchaseConsumer> purchaseConsumers = new ArrayList<>();
 	
 	@Override
 	public Long getId() {
@@ -77,11 +75,11 @@ public class Purchase implements PersistentEntity  {
 	public void setBuyer(Participant buyer) {
 		this.buyer = buyer;
 	}
-	public List<PurchaseConsumer> getConsumers() {
-		return consumers;
+	public List<PurchaseConsumer> getPurchaseConsumers() {
+		return purchaseConsumers;
 	}
-	public void setConsumers(List<PurchaseConsumer> consumers) {
-		this.consumers = consumers;
+	public void setPurchaseConsumers(List<PurchaseConsumer> consumers) {
+		this.purchaseConsumers = consumers;
 	}
 
 }
