@@ -1,6 +1,7 @@
 package org.semki.dutchtreat.mvc.models;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +85,7 @@ public class BalanceCalculator {
 			
 			for (PurchaseConsumer purchaseConsumer : purchase.getPurchaseConsumers()) {
 				if (purchaseConsumer.getConsumer() == participant) {
-					BigDecimal amount = purchase.getAmount().divide(BigDecimal.valueOf(purchase.getPurchaseConsumers().size()))
+					BigDecimal amount = purchase.getAmount().divide(BigDecimal.valueOf(purchase.getPurchaseConsumers().size()),2,RoundingMode.HALF_UP)
 							.multiply(BigDecimal.valueOf(-1));
 					calculationRows.add(makeRow(purchase.getBuyer(), amount, "Потребление: " + purchase.getDescription()));
 					break;
