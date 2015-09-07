@@ -5,7 +5,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -13,13 +15,15 @@ import javax.persistence.Table;
 public class Evento implements PersistentEntity {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private Long id;
 	
 	private String name;
-	private Date startDate;
-	private Date finishDate;
+	
+//	private Date startDate;
+//	
+//	private Date finishDate;
 	
 	@Column(name="name")
 	public String getName() {
@@ -29,21 +33,21 @@ public class Evento implements PersistentEntity {
 		this.name = name;
 	}
 	
-	@Column(name="startDate")
-	public Date getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-	
-	@Column(name="finishDate")
-	public Date getFinishDate() {
-		return finishDate;
-	}
-	public void setFinishDate(Date finishDate) {
-		this.finishDate = finishDate;
-	}
+//	@Column(name="start_date22")
+//	public Date getStartDate() {
+//		return startDate;
+//	}
+//	public void setStartDate(Date startDate) {
+//		this.startDate = startDate;
+//	}
+//	
+//	@Column(name="finish_date22")
+//	public Date getFinishDate() {
+//		return finishDate;
+//	}
+//	public void setFinishDate(Date finishDate) {
+//		this.finishDate = finishDate;
+//	}
 	
 	@Override
 	public Long getId() {

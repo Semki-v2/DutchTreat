@@ -68,8 +68,8 @@
 			<column name="name" type="varchar(500)">
 				<constraints nullable="false" />
 			</column>
-			<column name="startDate" type="Date" />
-			<column name="finishDate" type="Date" />
+			<column name="start_date" type="Date" />
+			<column name="finish_date" type="Date" />
 		</createTable>
 	</changeSet>
 
