@@ -1,2 +1,7 @@
 table.table tr td div.btn-group-hover { visibility:hidden;}
 table.table tr:hover td div.btn-group-hover { visibility:visible;}
+
+#loading-bar-spinner {
+  top: 50%;
+  left: 50%;
+}

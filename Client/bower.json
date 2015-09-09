@@ -16,6 +16,7 @@
     "angular-bootstrap": "~0.13.3",
     "bootstrap": "~3.3.5",
     "ng-tags-input": "~3.0.0",
-    "bootswatch-dist": "cosmo"
+    "bootswatch-dist": "cosmo", 
+    "angular-loading-bar": "0.8.0"
   }
 }

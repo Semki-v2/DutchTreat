@@ -8,6 +8,7 @@ angular.module("Balance", ["Eventos"]);
 // Declare app level module which depends on views, and components
 angular.module("semki.DutchTreat", [
   "ngAnimate", "ngRoute","ngResource", "ui.bootstrap", "ngTagsInput",
+  "angular-loading-bar",
   "Eventos", "Purchases", "Transfers", "Balance"])
 
   .config(function($locationProvider, $routeProvider) {
