@@ -33,6 +33,9 @@
 	<!-- Определяем папку, в которой будем искать веб компоненты (контроллеры) -->
 	<context:component-scan base-package="org.semki.dutchtreat.mvc.controllers" />
 	
+	<!-- 	Security конфиг -->
+	<context:component-scan base-package="org.semki.dutchtreat.config" />
+	
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
 
 	<import resource="rest-json-converter-context.xml" />

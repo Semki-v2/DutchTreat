@@ -154,7 +154,13 @@
 		    <groupId>org.postgresql</groupId>
 		    <artifactId>postgresql</artifactId>
 		    <version>9.3-1101-jdbc41</version>
-		    <scope>provided</scope>
+<!-- 		    <scope>provided</scope> -->
+		</dependency>
+		
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.7.4</version>
 		</dependency>
 	</dependencies>
 	<build>

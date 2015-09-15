@@ -16,4 +16,9 @@ public class AngularAppStaticController {
 	public String redirectToIndex(Map<String, Object> model) {
 		return "/app/index.html";
 	}
+	
+	@RequestMapping(value="/app/auth/**", method=RequestMethod.GET)
+	public String secToIndex(Map<String, Object> model) {
+		return "/app/index.html";
+	}
 }

@@ -12,6 +12,7 @@ import org.semki.dutchtreat.entity.Participant;
 import org.semki.dutchtreat.mvc.dto.EventDTO;
 import org.semki.dutchtreat.mvc.dto.ParticipantDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
