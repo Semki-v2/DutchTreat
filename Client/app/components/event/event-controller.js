@@ -34,6 +34,5 @@ angular.module("Eventos")
 
 .controller('EventoViewCtrl', function($scope, $rootScope, $location, $routeParams, EventosService, PurchaseService) {
 	$rootScope.$path = $location.path.bind($location);
-	$scope.eventosId = $routeParams.id;
 	$scope.evento = EventosService.getEvento($routeParams.id);
 });
