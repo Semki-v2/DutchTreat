@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Configuration
 @EnableWebSecurity
@@ -20,15 +21,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private EntryPointUnauthorizedHandler entryPointUnauthrizedHandler;
 	
+	@Autowired
+	private UserDetailsServiceImpl userDetailsService;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().exceptionHandling().authenticationEntryPoint(entryPointUnauthrizedHandler)
 						.and()
-						.formLogin().successHandler(authSuccessHandler).failureHandler(authFailureHandler)
+						.formLogin().loginPage("/app/auth/login").successHandler(authSuccessHandler).failureHandler(authFailureHandler)
 						.and()
 						.authorizeRequests()
 						.antMatchers("/app/index.html",
-									 "/app/login.html",
+									 "/app/auth/login",
 									 "/app/bower_components/**",
 									 "/app/components/**",
 									 "/app/views/**",
@@ -42,8 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configurationBuilder(AuthenticationManagerBuilder builder) throws Exception
 	{
-		builder.inMemoryAuthentication()
-				.withUser("user").password("password").roles("USER");
+		builder.userDetailsService(userDetailsService);
 	}
 	
 }
