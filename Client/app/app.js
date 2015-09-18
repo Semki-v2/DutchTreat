@@ -11,7 +11,7 @@ angular.module("semki.DutchTreat", [
   "angular-loading-bar",
   "Eventos", "Purchases", "Transfers", "Balance"])
 
-  .config(function($locationProvider, $routeProvider) {
+  .config(function($locationProvider, $routeProvider, $httpProvider) {
 
     $locationProvider.html5Mode(true);
 
@@ -60,4 +60,21 @@ angular.module("semki.DutchTreat", [
         redirectTo: "events/"
       });
 
+    var interceptor = function ($q) {
+      return {
+        request: function ( config ) { 
+                    console.log("run request");
+                    return config;
+          },
+        response: function ( response ) { 
+            console.log("ger response");
+            return response;
+          },
+        responseError: function ( response ) { 
+           console.log("get error");
+            return $q.reject( response );
+          }
+        };
+      };
+    $httpProvider.interceptors.push(interceptor);
   });

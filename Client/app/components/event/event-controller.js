@@ -35,11 +35,4 @@ angular.module("Eventos")
 .controller('EventoViewCtrl', function($scope, $rootScope, $location, $routeParams, EventosService, PurchaseService) {
 	$rootScope.$path = $location.path.bind($location);
 	$scope.evento = EventosService.getEvento($routeParams.id);
-	$scope.purchases = PurchaseService.getPurchases($routeParams.id);
-
-	$scope.deletePurchase = function(purchase) {
-		PurchaseService.deletePurchase(purchase).then(function() {
-			$scope.purchases = PurchaseService.getPurchases($routeParams.id);
-		});
-	}
 });
