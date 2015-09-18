@@ -4,13 +4,13 @@ angular.module("Eventos", ["Participants", "ngRoute", "Purchases", "ngResource"]
 angular.module("Purchases", ["Participants"]);
 angular.module("Transfers", ["Participants"]);
 angular.module("Balance", ["Eventos"]);
-angular.module("Authentication", []);
+angular.module("Authentication",[]);
 
 // Declare app level module which depends on views, and components
 angular.module("semki.DutchTreat", [
   "ngAnimate", "ngRoute","ngResource", "ui.bootstrap", "ngTagsInput",
   "angular-loading-bar",
-  "Eventos", "Purchases", "Transfers", "Balance"])
+  "Eventos", "Purchases", "Transfers", "Balance","Authentication"])
 
   .config(function($locationProvider, $routeProvider, $httpProvider) {
 
