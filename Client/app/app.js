@@ -65,18 +65,28 @@ angular.module("semki.DutchTreat", [
         redirectTo: "events/"
       });
 
-    var interceptor = function ($q) {
+    var interceptor = function ($q,$location,$rootScope) {
       return {
         request: function ( config ) { 
-                    console.log("run request");
-                    return config;
+            console.log("run request");
+            return config;
           },
-        response: function ( response ) { 
+        response: function ( response ) {
             console.log("ger response");
             return response;
           },
         responseError: function ( response ) { 
-           console.log("get error");
+           if (response.status === 401) {
+                console.log("Response 401");
+
+                $rootScope.previousPage = location.pathname;
+
+                $location.url('/auth/login')
+            }
+            else
+            {
+              console.log("ger error");
+            } 
             return $q.reject( response );
           }
         };
