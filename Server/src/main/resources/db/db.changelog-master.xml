@@ -183,5 +183,50 @@
 			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
 			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="participants" />
 	</changeSet>
+	
+	<changeSet id="create relation user -> role"
+		author="lvm444">
+		
+		<renameTable newTableName="account" oldTableName="user"/>
+		
+		<renameTable newTableName="acc_role" oldTableName="role"/>
+		
+		<createTable tableName="account_role">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="account_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="acc_role_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="account_id"
+			baseTableName="account_role" constraintName="account_role_user_id_fk"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="account" />
+
+		<addForeignKeyConstraint baseColumnNames="acc_role_id"
+			baseTableName="account_role" constraintName="account_role_role_id_fk"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="acc_role" />
+		
+		<dropColumn tableName="account" columnName="role"/>
+		
+	</changeSet>
+	
+	<changeSet id="reorganize user-role data"
+		author="lvm444">
+		<insert tableName="account_role">
+			<column name="account_id" valueComputed="(SELECT ID FROM account WHERE name='ADMIN')"></column>
+			<column name="acc_role_id" valueComputed="(SELECT ID FROM acc_role WHERE name='SUPERUSER')"></column>
+		</insert>
+		
+		<insert tableName="account_role">
+			<column name="account_id" valueComputed="(SELECT ID FROM account WHERE name='USER')"></column>
+			<column name="acc_role_id" valueComputed="(SELECT ID FROM acc_role WHERE name='USER')"></column>
+		</insert>
+	</changeSet>
 
 </databaseChangeLog>
