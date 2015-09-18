@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						.and()
 						.authorizeRequests()
 						.antMatchers("/app/index.html",
+									 "/app/events/**",
 									 "/app/auth/login",
 									 "/app/bower_components/**",
 									 "/app/components/**",
