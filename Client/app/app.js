@@ -4,6 +4,7 @@ angular.module("Eventos", ["Participants", "ngRoute", "Purchases", "ngResource"]
 angular.module("Purchases", ["Participants"]);
 angular.module("Transfers", ["Participants"]);
 angular.module("Balance", ["Eventos"]);
+angular.module("Authentication", []);
 
 // Declare app level module which depends on views, and components
 angular.module("semki.DutchTreat", [
@@ -55,6 +56,10 @@ angular.module("semki.DutchTreat", [
       .when("/events/:event_id/balance", {
         templateUrl: "views/balance/pariticipant-balance-view.html",
         controller: "ParticipantBalanceCtrl"
+      })
+      .when("/auth/login", {
+        templateUrl: "views/auth/signin.html",
+        controller: "AuthenticationCtrl"
       })
       .otherwise({
         redirectTo: "events/"
