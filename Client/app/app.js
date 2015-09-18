@@ -79,7 +79,7 @@ angular.module("semki.DutchTreat", [
            if (response.status === 401) {
                 console.log("Response 401");
 
-                $rootScope.previousPage = location.pathname;
+                $rootScope.previousPage = $location.$$path;
 
                 $location.url('/auth/login')
             }
