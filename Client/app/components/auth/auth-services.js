@@ -20,6 +20,7 @@ angular.module("Authentication")
 		        .then(function(credentials) {
 		            if ($rootScope.previousPage != null) {
                			$location.path($rootScope.previousPage).replace();
+               			$rootScope.previousPage = null;
               		}
               		else
               		{
