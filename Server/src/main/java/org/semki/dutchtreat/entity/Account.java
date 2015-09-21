@@ -28,6 +28,9 @@ public class Account implements PersistentEntity{
 	
 	@Column(name="name")
 	private String name;
+	
+	@Column(name="email")
+	private String email;
 
 	@Override
 	public Long getId() {
@@ -63,6 +66,14 @@ public class Account implements PersistentEntity{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 //	@OneToMany(mappedBy="account_role")

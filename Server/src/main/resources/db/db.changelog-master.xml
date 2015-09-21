@@ -228,5 +228,12 @@
 			<column name="acc_role_id" valueComputed="(SELECT ID FROM acc_role WHERE name='USER')"></column>
 		</insert>
 	</changeSet>
+	
+	<changeSet id="reorganize add email to account"
+		author="lvm444">
+		<addColumn tableName="account">
+			<column name="email" type="varchar(255)"/>
+		</addColumn>
+	</changeSet>
 
 </databaseChangeLog>

@@ -4,6 +4,8 @@ import org.semki.dutchtreat.entity.Account;
 
 public interface AccountDAO extends BaseDAO<Account>  {
 	
-	public Account getUserByName(String name);
+	public Account getAccountByName(String name);
+	
+	public Account getAccountByEmail(String email);
 
 }

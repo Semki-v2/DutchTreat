@@ -30,5 +30,18 @@ angular.module("Authentication")
 		            alert("error logging in");
 		        });
 			}
+			,
+			signup : function(account){
+				return $http({
+				    method: 'POST',
+				    url: "/dutch-treat/app/auth/registration",
+				    data: account
+				})
+		        .then(function(account) {
+		            $location.path("/dutch-treat/app/auth/login").replace();
+		        }, function(account) {
+		            alert("error ");
+		        });
+			}
 		};
 	});

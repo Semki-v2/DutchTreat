@@ -1,11 +1,18 @@
 package org.semki.dutchtreat.config.security;
 
+import org.semki.dutchtreat.mvc.models.AccountModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authentication.dao.ReflectionSaltSource;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Configuration
@@ -23,6 +30,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
+	
+	@Autowired
+	private ReflectionSaltSource saltSource;
+	
+	@Autowired
+	private Md5PasswordEncoder passEnc;
+
+	@Autowired
+	private DaoAuthenticationProvider authProvider;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -47,8 +63,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	public void configurationBuilder(AuthenticationManagerBuilder builder) throws Exception
+	{		
+		builder.authenticationProvider(authProvider);
+	}
+	
+	
+	@Bean
+	public ReflectionSaltSource saltSource()
 	{
-		builder.userDetailsService(userDetailsService);
+		ReflectionSaltSource source = new ReflectionSaltSource();
+		source.setUserPropertyToUse("email");
+		
+		return source;
+	}
+	
+	@Bean
+	public Md5PasswordEncoder passEncoder()
+	{
+		return new Md5PasswordEncoder();
+	}
+	
+	@Bean 
+	public DaoAuthenticationProvider authProvider()
+	{
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+	    provider.setSaltSource(saltSource);
+	    provider.setUserDetailsService(userDetailsService);
+	    provider.setPasswordEncoder(passEnc);
+	    
+	    return provider;
+	}
+	
+	@Bean 
+	public AccountModel accountModel()
+	{   
+	    return new AccountModel();
 	}
 	
 }
