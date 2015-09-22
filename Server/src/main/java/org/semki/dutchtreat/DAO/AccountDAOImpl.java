@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
 import org.semki.dutchtreat.entity.Account;
+import org.semki.dutchtreat.utils.ObjectsSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ public class AccountDAOImpl extends BaseDAOImpl<Account> implements AccountDAO {
 
 	@Override
 	public Account getUserByName(String name) {
-		List<Account> accList = createCriteria().add(Restrictions.eq("name", name)).list();
+		List<Account> accList = ObjectsSupport.safeCastList(createCriteria().add(Restrictions.eq("name", name)).list());
 		
 		Account result = null;
 		
