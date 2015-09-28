@@ -20,6 +20,7 @@
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="hibernateManagedSession" value="false" />
 	</bean>
 
 	<!-- Data source settings -->
@@ -70,5 +71,7 @@
 		<property name="changeLog" value="classpath:db/db.changelog-master.xml" />
 		<property name="contexts" value="production" />
 	</bean>
+	
+	<bean id="secInit" class="org.semki.dutchtreat.core.initiaze.SecurityInit" depends-on="transactionManager"> </bean>
 
 </beans>

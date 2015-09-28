@@ -1,7 +1,5 @@
 package org.semki.dutchtreat.DAO;
 
-import java.util.List;
-
 import org.hibernate.criterion.Restrictions;
 import org.semki.dutchtreat.entity.Account;
 import org.springframework.stereotype.Repository;
@@ -17,13 +15,14 @@ public class AccountDAOImpl extends BaseDAOImpl<Account> implements AccountDAO {
 
 	@Override
 	public Account getAccountByName(String name) {
-		return this.first(createCriteria().add(Restrictions.eq("name", name)).list());
+		return this.first(createCriteria().add(Restrictions.eq("name", name))
+				.list());
 	}
 
 	@Override
 	public Account getAccountByEmail(String email) {
-		return this.first(createCriteria().add(Restrictions.eq("email", email)).list());
+		return this.first(createCriteria().add(Restrictions.eq("email", email))
+				.list());
 	}
-
 
 }

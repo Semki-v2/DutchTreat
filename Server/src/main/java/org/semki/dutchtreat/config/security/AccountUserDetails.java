@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.semki.dutchtreat.entity.Account;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,21 +14,19 @@ public class AccountUserDetails implements UserDetails {
 
 	private final Account user;
 	
+	final static Logger logger = LoggerFactory.getLogger(AccountUserDetails.class);
+	
 	public AccountUserDetails(Account user) {
 		super();
 		this.user = user;
 	}
 
 	@Override
-	public String getPassword() {
-		// TODO Add Salt
-		return user.getPassword();
-	}
-
-	@Override
 	public String getUsername() {
 		return user.getName();
 	}
+	
+	
 
 	@Override
 	public boolean isAccountNonExpired() {
@@ -61,6 +61,20 @@ public class AccountUserDetails implements UserDetails {
         ArrayList<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(authority);
         return authorities;
+	}
+
+	public String getEmail() {
+		return user.getEmail();
+	}
+
+	@Override
+	public String getPassword() {
+		String pass = user.getPassword();
+		logger.debug(String.format("pass %s", pass));
+		
+		logger.debug("encoder %l ");
+		
+		return pass;
 	}
 
 }

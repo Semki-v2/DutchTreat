@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -35,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private ReflectionSaltSource saltSource;
 	
 	@Autowired
-	private Md5PasswordEncoder passEnc;
+	private BCryptPasswordEncoder passEnc;
 
 	@Autowired
 	private DaoAuthenticationProvider authProvider;
@@ -63,8 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	public void configurationBuilder(AuthenticationManagerBuilder builder) throws Exception
-	{		
-		builder.authenticationProvider(authProvider);
+	{
+		builder.authenticationProvider(authProvider).eraseCredentials(false);
 	}
 	
 	
@@ -78,16 +79,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
-	public Md5PasswordEncoder passEncoder()
+	public BCryptPasswordEncoder passEncoder()
 	{
-		return new Md5PasswordEncoder();
+		return new BCryptPasswordEncoder();
 	}
 	
 	@Bean 
 	public DaoAuthenticationProvider authProvider()
 	{
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-	    provider.setSaltSource(saltSource);
 	    provider.setUserDetailsService(userDetailsService);
 	    provider.setPasswordEncoder(passEnc);
 	    

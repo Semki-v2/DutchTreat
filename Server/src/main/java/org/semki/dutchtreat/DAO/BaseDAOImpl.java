@@ -80,7 +80,7 @@ public abstract class BaseDAOImpl<Entity extends PersistentEntity> implements Ba
 	{
 		if (list.size()>0)
 		{
-			return list.get(1);
+			return list.get(0);
 		}
 		else
 		{

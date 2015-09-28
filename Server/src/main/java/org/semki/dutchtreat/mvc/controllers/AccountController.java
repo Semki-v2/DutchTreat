@@ -1,6 +1,5 @@
 package org.semki.dutchtreat.mvc.controllers;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
