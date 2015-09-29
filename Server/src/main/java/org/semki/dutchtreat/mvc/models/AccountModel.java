@@ -42,10 +42,10 @@ public class AccountModel {
 		acc.setPassword(passEncoder.encode(dto.user_password));
 		Set<Role> rolesSet = new HashSet<Role>();
 		
-//		for (RoleDTO roleDTO : dto.roles) {
-//			rolesSet.add(roleDAO.getRoleByName(roleDTO.name));
-//		}
-		
+		for (RoleDTO roleDTO : dto.roles) {
+			rolesSet.add(roleDAO.getRoleByName(roleDTO.name));
+		}
+		acc.setRoles(rolesSet);
 		accountDAO.save(acc);
 	}
 
@@ -70,6 +70,12 @@ public class AccountModel {
 			throw new AccountValidationException(String.format(
 					"Подтверждение не совпадает с паролем", dto.user_login));
 		}
+	}
+
+	public void createRole(String name) {
+		Role role = new Role();
+		role.setName(name);
+		roleDAO.save(role);
 	}
 
 }

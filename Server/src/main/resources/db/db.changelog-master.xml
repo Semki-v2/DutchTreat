@@ -239,10 +239,10 @@
 	<changeSet id="delete old users"
 		author="lvm444">
 		<delete tableName="account_role"></delete>
-		<delete tableName="user_role"></delete>
+<!-- 		<delete tableName="user_role"></delete> -->
 		<delete tableName="account"></delete>
 		<delete tableName="acc_role"></delete>
-		<dropTable tableName="user_role"/>
+<!-- 		<dropTable tableName="user_role"/> -->
 		
 		<renameTable newTableName="roles" oldTableName="acc_role"/>
 		<renameColumn tableName="account_role" oldColumnName="acc_role_id" newColumnName="role_id"/>
