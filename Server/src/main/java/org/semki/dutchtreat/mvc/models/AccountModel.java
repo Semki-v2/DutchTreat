@@ -13,6 +13,7 @@ import org.semki.dutchtreat.mvc.dto.RoleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.dao.ReflectionSaltSource;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,9 +25,9 @@ public class AccountModel {
 	
 	@Autowired
 	private RoleDAO roleDAO;
-
+	
 	@Autowired
-	private ReflectionSaltSource saltSource;
+	private UserDetailsService userDetails;
 
 	@Autowired
 	private BCryptPasswordEncoder passEncoder;
@@ -77,5 +78,31 @@ public class AccountModel {
 		role.setName(name);
 		roleDAO.save(role);
 	}
+	
+	public Account getCurrentUser(String username) {
+		return accountDAO.getAccountByName(username);
+	}
 
+	public Account updateAccount(AccountDTO accDTO) {
+		validateAccount(accDTO);
+		
+		Account acc = accountDAO.get(accDTO.id);
+		
+		acc.setEmail(accDTO.email);
+		acc.setActive(accDTO.active);
+		acc.setPassword(passEncoder.encode(accDTO.user_password));
+		Set<Role> rolesSet = new HashSet<Role>();
+		
+		for (RoleDTO roleDTO : accDTO.roles) {
+			rolesSet.add(roleDAO.getRoleByName(roleDTO.name));
+		}
+		acc.setRoles(rolesSet);
+		accountDAO.save(acc);
+		
+		return accountDAO.getAccountByName(acc.getName());
+	}
+
+	public Account getAccountById(Long id) {
+		return accountDAO.get(id);
+	}
 }

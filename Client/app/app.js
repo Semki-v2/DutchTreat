@@ -65,6 +65,10 @@ angular.module("semki.DutchTreat", [
         templateUrl: "views/auth/account-new.html",
         controller: "AccountNewCtrl"
       })
+      .when("/auth/account/:account_id/edit", {
+        templateUrl: "views/auth/account-edit.html",
+        controller: "AccountEditCtrl"
+      })
       .otherwise({
         redirectTo: "events/"
       });

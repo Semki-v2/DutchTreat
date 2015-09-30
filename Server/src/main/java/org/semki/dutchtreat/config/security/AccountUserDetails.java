@@ -69,12 +69,7 @@ public class AccountUserDetails implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		String pass = user.getPassword();
-		logger.debug(String.format("pass %s", pass));
-		
-		logger.debug("encoder %l ");
-		
-		return pass;
+		return user.getPassword();
 	}
 
 }

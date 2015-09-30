@@ -65,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configurationBuilder(AuthenticationManagerBuilder builder) throws Exception
 	{
-		builder.authenticationProvider(authProvider).eraseCredentials(false);
+		builder.authenticationProvider(authProvider).eraseCredentials(true);
 	}
 	
 	

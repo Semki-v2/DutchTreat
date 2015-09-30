@@ -45,14 +45,7 @@ public class Account implements PersistentEntity{
 
 	@Override
 	public Long getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setId(Long id) {
-		// TODO Auto-generated method stub
-		
+		return id;
 	}
 	
 	public boolean isActive() {
@@ -94,6 +87,13 @@ public class Account implements PersistentEntity{
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	@Override
+	public void setId(Long id) {
+		if (id != null) {
+			this.id = id;
+		}
 	}
 	
 }
