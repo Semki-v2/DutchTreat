@@ -1,7 +1,9 @@
 package org.semki.dutchtreat.mvc.models;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.semki.dutchtreat.DAO.AccountDAO;
 import org.semki.dutchtreat.DAO.EventoDAO;
@@ -31,7 +33,10 @@ public class EventModel {
 	
 	public void createEvent(EventDTO eDTO)
 	{
-		Evento entity = eDTO.convertToEntity();
+		Evento entity = convertDTOToEntity(eDTO);
+		
+		entity.setAccessAccounts(getAccessHashSet(eDTO));
+		
 		eventDAO.save(entity);
 		
 		for (ParticipantDTO participantDTO : eDTO.participants) {
@@ -39,10 +44,52 @@ public class EventModel {
 			participant.setEvento(entity);
 			participantDAO.save(participant);
 		}
+	}
+	
+	public void updateEvent(EventDTO eDTO,Long eventId)
+	{
+		Evento entity = eventDAO.get(eventId);
+		entity.setName(eDTO.name);
+		Set<Account> accessHashSet = getAccessHashSet(eDTO);
+		entity.setAccessAccounts(accessHashSet);
+		eventDAO.update(entity);
+		
+		for (ParticipantDTO participantDTO : eDTO.participants) {
+			Participant participant;
+			if (participantDTO.id != null) {
+				participant = participantDAO.get(participantDTO.id);
+				participant.setName(participantDTO.name);
+			}
+			else {
+				participant = participantDAO.getByEventAndName(entity, participantDTO.name);
+				if (participant == null) {
+					participant = participantDTO.convertToEntity();
+				}
+				participant.setEvento(entity);
+			}
+			participantDAO.save(participant);
+		}
+	}
+
+
+
+	private Evento convertDTOToEntity(EventDTO eDTO) {
+		Evento entity = eDTO.convertToEntity();
+		
+		getAccessHashSet(eDTO);
+		return entity;
+	}
+
+	private Set<Account> getAccessHashSet(EventDTO eDTO) {
+		Set<Account> accounts = new HashSet<Account>();
 		
 		for (AccountDTO accDTO : eDTO.accessAccounts) {
+			Account acc = accDAO.get(accDTO.id);
 			
+			accounts.add(acc);
 		}
+		
+		return accounts;
 	}
 	
 	

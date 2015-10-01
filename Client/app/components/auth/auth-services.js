@@ -100,5 +100,12 @@ angular.module("Authentication")
 						    url: "/dutch-treat/app/auth/account/"+accId
 						});
 			}
+			,
+			getAccountList : function(){
+				return $http({
+						    method: 'GET',
+						    url: "/dutch-treat/app/auth/account"
+						});
+			}
 		};
 	});

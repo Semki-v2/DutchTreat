@@ -8,4 +8,12 @@
 	<label for="evento_participants" class="control-label col-sm-1">Участники: </label>
 	<tags-input ng-model="evento.participants" id="evento_participants" placeholder="Добавить участника" min-length="2" display-property="name" key-property="name">
 </div>
+<div class="form-group">
+  <label for="accounts" class="control-label col-sm-1">Доступ: </label>
+  <div class="col-sm-6">
+    <select multiple class="form-control" ng-model="evento.accessAccounts" id="accounts" required ng-options="account.user_login for account in accounts track by account.id" convert-to-number>
+      
+    </select>
+  </div>
+</div>
 <input type="submit" class="btn btn-primary" value="Сохранить"/>

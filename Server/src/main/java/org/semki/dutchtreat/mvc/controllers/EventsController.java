@@ -93,24 +93,6 @@ public class EventsController {
 	@Transactional
 	public void update(@RequestBody EventDTO eDTO, @PathVariable Long eventId)
 	{
-		Evento entity = dao.get(eventId);
-		entity.setName(eDTO.name);
-		dao.update(entity);
-		
-		for (ParticipantDTO participantDTO : eDTO.participants) {
-			Participant participant;
-			if (participantDTO.id != null) {
-				participant = paricipantDAO.get(participantDTO.id);
-				participant.setName(participantDTO.name);
-			}
-			else {
-				participant = paricipantDAO.getByEventAndName(entity, participantDTO.name);
-				if (participant == null) {
-					participant = participantDTO.convertToEntity();
-				}
-				participant.setEvento(entity);
-			}
-			paricipantDAO.save(participant);
-		}
+		eventoModel.updateEvent(eDTO, eventId);
 	}
 }

@@ -4,6 +4,10 @@ import org.semki.dutchtreat.entity.Role;
 
 public class RoleDTO {
 	
+	public RoleDTO() {
+
+	}
+
 	public RoleDTO(String roleName) {
 		this.name = roleName;
 	}

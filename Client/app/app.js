@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module("Eventos", ["Participants", "ngRoute", "Purchases", "ngResource"]);
+angular.module("Eventos", ["Participants", "ngRoute", "Purchases", "ngResource","Authentication"]);
 angular.module("Purchases", ["Participants"]);
 angular.module("Transfers", ["Participants"]);
 angular.module("Balance", ["Eventos"]);
