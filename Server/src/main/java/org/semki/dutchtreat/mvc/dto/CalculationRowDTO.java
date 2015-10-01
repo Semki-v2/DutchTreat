@@ -2,7 +2,7 @@ package org.semki.dutchtreat.mvc.dto;
 
 import java.math.BigDecimal;
 
-import org.semki.dutchtreat.mvc.models.CalcultionRow;
+import org.semki.dutchtreat.mvc.models.CalculationRow;
 
 public class CalculationRowDTO {
 	
@@ -12,7 +12,7 @@ public class CalculationRowDTO {
 	
 	public ParticipantDTO initiator;
 	
-	public static CalculationRowDTO convertToDTO(CalcultionRow row) {
+	public static CalculationRowDTO convertToDTO(CalculationRow row) {
 		CalculationRowDTO dto = new CalculationRowDTO();
 		dto.amount = row.amount;
 		dto.description = row.description;

@@ -1,5 +1,12 @@
 <h1>Событие {{evento.name}}</h1>
-<purchase-table data-event-id="{{evento.id}}"></purchase-table>
-<a href="events/{{evento.id}}/purchases/new">Добавить покупку</a>
-<a href="events/{{evento.id}}/transfers">Переводы</a>
-<a href="events/{{evento.id}}/balance">Расчеты</a>
+<tabset type="tabs">
+  <tab heading="Расчеты">
+    <summary-balance data-event-id="{{evento.id}}"></summary-balance>
+  </tab>
+  <tab heading="Покупки">
+    <purchase-table data-event-id="{{evento.id}}"></purchase-table>
+  </tab>
+  <tab heading="Переводы">
+    <transfers-table data-event-id="{{evento.id}}"></transfers-table>
+  </tab>  
+</tabset>

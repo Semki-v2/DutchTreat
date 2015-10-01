@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import org.semki.dutchtreat.entity.Participant;
 
-public class CalcultionRow {
+public class CalculationRow {
 	
 	public Participant initiator;
 	
@@ -12,7 +12,7 @@ public class CalcultionRow {
 	
 	public String description;
 
-	public CalcultionRow(Participant initiator, BigDecimal amount, String description) {
+	public CalculationRow(Participant initiator, BigDecimal amount, String description) {
 		super();
 		this.initiator = initiator;
 		this.amount = amount;

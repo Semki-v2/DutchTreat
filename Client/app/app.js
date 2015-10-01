@@ -76,23 +76,23 @@ angular.module("semki.DutchTreat", [
     var interceptor = function ($q,$location,$rootScope) {
       return {
         request: function ( config ) { 
-            console.log("run request");
+            //console.log("run request");
             return config;
           },
         response: function ( response ) {
-            console.log("ger response");
+            //console.log("ger response");
             return response;
           },
         responseError: function ( response ) { 
            if (response.status === 401) {
-                console.log("Response 401");
+                //console.log("Response 401");
 
                 if ($rootScope.previousPage == null) {
                   $rootScope.previousPage = $location.$$path;
-                  console.log("previousPage = " + $rootScope.previousPage);
+                  //console.log("previousPage = " + $rootScope.previousPage);
                 }
                 else {
-                  console.log("use old previousPage = " + $rootScope.previousPage); 
+                  //console.log("use old previousPage = " + $rootScope.previousPage); 
                 }
 
                 $location.url('/auth/login');

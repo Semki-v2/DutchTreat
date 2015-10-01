@@ -2,6 +2,7 @@ package org.semki.dutchtreat.DAO;
 
 import org.hibernate.criterion.Restrictions;
 import org.semki.dutchtreat.entity.Account;
+import org.semki.dutchtreat.utils.ObjectsSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

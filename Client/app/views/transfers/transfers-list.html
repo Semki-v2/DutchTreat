@@ -1,5 +1,4 @@
-<h1>Событие {{evento.name}}</h1>
-  <table class="table table-striped table-hover">
+<table class="table table-striped table-hover">
   <thead>
     <tr>
       <th>Отправитель</th>
@@ -30,4 +29,17 @@
     
   </tbody>
 </table>
-<a href="events/{{evento.id}}/transfers/new">Добавить проводку</a>
+<a href="events/{{eventId}}/transfers/new" class="btn btn-primary btn-xs">Добавить проводку</a>
+
+<script type="text/ng-template" id="confirmDeleteTransfer.html">
+  <div class="modal-header">
+      <h4>Подтверждение</h4>
+  </div>
+  <div class="modal-body">
+      <p>Вы уверены, что хотите удалить проводку {{transfer.description}}?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="confimDelete(transfer)">Удалить</button>
+    <button class="btn" ng-click="cancelDelete()">Отмена</button>
+  </div>
+</script>
