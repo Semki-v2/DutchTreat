@@ -1,5 +1,7 @@
 package org.semki.dutchtreat.mvc.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
@@ -32,6 +34,13 @@ public class AccountController {
 	public void createAccount(@RequestBody AccountDTO dto)
 	{
 		accModel.createAccount(dto);
+	}
+	
+	@RequestMapping(value = "/logout",method = RequestMethod.GET)
+	@Transactional
+	public void logout()
+	{
+		
 	}
 	
 	@RequestMapping(value = "/current",method = RequestMethod.GET)
@@ -75,6 +84,13 @@ public class AccountController {
 		Account acc = accModel.getAccountById(id);
 		
 		return AccountDTO.convertToTransport(acc);
+	}
+	
+	@RequestMapping(value = "/account",method = RequestMethod.GET)
+	@Transactional
+	public @ResponseBody List<AccountDTO> getAccountList()
+	{	
+		return  accModel.getAccountList(); 
 	}
 	
 	

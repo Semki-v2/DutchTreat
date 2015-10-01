@@ -251,4 +251,28 @@
 		author="lvm444">
 		<modifyDataType tableName="account" columnName="password" newDataType="varchar(255)"/>
 	</changeSet>
+	
+	<changeSet id="add account event table" author="lvm444">
+		<createTable tableName="account_event_access">
+			<column name="id" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="evento_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="account_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint baseColumnNames="evento_id"
+			baseTableName="account_event_access" constraintName="account_event_access_evento_id_fk"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="eventos" />
+
+		<addForeignKeyConstraint baseColumnNames="account_id"
+			baseTableName="account_event_access" constraintName="account_event_access_account_id_fk"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="account" />
+	</changeSet>
 </databaseChangeLog>

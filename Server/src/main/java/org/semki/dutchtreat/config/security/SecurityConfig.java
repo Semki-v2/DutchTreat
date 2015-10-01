@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().exceptionHandling().authenticationEntryPoint(entryPointUnauthrizedHandler)
 						.and()
 						.formLogin().loginPage("/app/auth/login").successHandler(authSuccessHandler).failureHandler(authFailureHandler)
-						.and()
+						.and().logout().logoutUrl("/app/auth/logout").logoutSuccessUrl("/app/index.html").and()
 						.authorizeRequests()
 						.antMatchers("/app/index.html",
 									 "/app/events/**",

@@ -7,12 +7,17 @@ import javax.transaction.Transactional;
 
 import org.semki.dutchtreat.DAO.EventoDAO;
 import org.semki.dutchtreat.DAO.ParticipantDAO;
+import org.semki.dutchtreat.core.initiaze.Roles;
 import org.semki.dutchtreat.entity.Evento;
 import org.semki.dutchtreat.entity.Participant;
 import org.semki.dutchtreat.mvc.dto.EventDTO;
 import org.semki.dutchtreat.mvc.dto.ParticipantDTO;
+import org.semki.dutchtreat.mvc.models.AccountModel;
+import org.semki.dutchtreat.mvc.models.EventModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,19 +34,29 @@ public class EventsController {
 	@Autowired
 	ParticipantDAO paricipantDAO;
 	
+	@Autowired
+	EventModel eventoModel;
+	
+	@Autowired
+	AccountModel accountModel;
+	
 	@RequestMapping("/eventos")
 	@Transactional
 	public List<EventDTO> getEvents() {
-		List<Evento> list = dao.list();
-		List<EventDTO> listDTO = new ArrayList<EventDTO>();
-		for (Evento en : list) {
-			EventDTO eventDTO = new EventDTO(en);
-			List<Participant> participants = paricipantDAO.getByEvent(en);
-			for (Participant participant : participants) {
-				eventDTO.participants.add(ParticipantDTO.convertToDTO(participant));
-			}
-			listDTO.add(eventDTO);
-		}
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	      String username = auth.getName();
+	      
+	    List<EventDTO> listDTO;
+	     
+	    if (accountModel.accountHasRole(username, Roles.ADMIN))
+	    {
+	    	listDTO = eventoModel.getAllEventos();
+	    }
+	    else
+	    {
+	    	listDTO = eventoModel.getRestrictedEventos(accountModel.getCurrentUser(username));
+	    } 
 		
 		return listDTO;
 	}
@@ -70,14 +85,7 @@ public class EventsController {
 	@Transactional
 	public void create(@RequestBody EventDTO eDTO)
 	{
-		Evento entity = eDTO.convertToEntity();
-		dao.save(entity);
-		
-		for (ParticipantDTO participantDTO : eDTO.participants) {
-			Participant participant = participantDTO.convertToEntity();
-			participant.setEvento(entity);
-			paricipantDAO.save(participant);
-		}
+		eventoModel.createEvent(eDTO);
 	}
 	
 	@RequestMapping(value = "/eventos/{eventId}",method = RequestMethod.POST)

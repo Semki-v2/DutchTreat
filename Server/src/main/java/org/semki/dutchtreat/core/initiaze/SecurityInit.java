@@ -72,19 +72,16 @@ public class SecurityInit implements InitializingBean{
 	@Transactional
 	public void initRoles()
 	{
-		createOrUpdateRole("USER");
-		createOrUpdateRole("ADMIN");
+		createOrUpdateRole(Roles.USER);
+		createOrUpdateRole(Roles.ADMIN);
 	}
 	
 	@Transactional
-	public void createOrUpdateRole(String name)
+	public void createOrUpdateRole(Roles name)
 	{
-		if (roleDAO.getRoleByName(name)==null)
+		if (roleDAO.getRoleByName(name.toString())==null)
 		{
-			accModel.createRole(name);
-//			Role role = new Role();
-//			role.setName(name);
-//			roleDAO.save(role);
+			accModel.createRole(name.toString());
 		}
 	}
 

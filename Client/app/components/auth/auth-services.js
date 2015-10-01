@@ -34,6 +34,22 @@ angular.module("Authentication")
 		        });
 			}
 			,
+			logout : function () {
+				return $http({
+				    method: 'POST',
+				    url: "/dutch-treat/app/auth/logout",
+				    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+				})
+		        .then(function(credentials) {
+		        	$rootScope.currentUser = null;
+					$rootScope.isAuthenticated = null;
+		        }, function(credentials) {
+		        	$rootScope.currentUser = null;
+					$rootScope.isAuthenticated = null;
+		            alert("error logout");
+		        });
+			}
+			,
 			signup : function(account){
 				return $http({
 				    method: 'POST',

@@ -4,10 +4,6 @@ angular.module("semki.DutchTreat")
 
 .controller("MainCtrl", function($scope, $rootScope, $location, $routeParams,AuthenticationService) {
 
-	$scope.currentUser = AuthenticationService.getCurrentUser();
-
-	$scope.isAuthenticated = $rootScope.isAuthenticated;
-
 	$rootScope.$watch('currentUser',function(){
 		console.log("curuser changed");
 		$scope.currentUser = AuthenticationService.getCurrentUser(); 		
@@ -28,6 +24,8 @@ angular.module("semki.DutchTreat")
 	};
 
 	$scope.logout = function() {
-		
+		AuthenticationService.logout()
+		$rootScope.currentUser = null;
+		$rootScope.isAuthenticated = null;
 	};
 })
