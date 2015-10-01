@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module("Eventos", ["Participants", "ngRoute", "Purchases", "ngResource"]);
+angular.module("Eventos", ["Participants", "ngRoute", "Purchases", "ngResource","Authentication"]);
 angular.module("Purchases", ["Participants"]);
 angular.module("Transfers", ["Participants"]);
 angular.module("Balance", ["Eventos"]);
@@ -60,6 +60,14 @@ angular.module("semki.DutchTreat", [
       .when("/auth/login", {
         templateUrl: "views/auth/signin.html",
         controller: "AuthenticationCtrl"
+      })
+      .when("/auth/registration", {
+        templateUrl: "views/auth/account-new.html",
+        controller: "AccountNewCtrl"
+      })
+      .when("/auth/account/:account_id/edit", {
+        templateUrl: "views/auth/account-edit.html",
+        controller: "AccountEditCtrl"
       })
       .otherwise({
         redirectTo: "events/"

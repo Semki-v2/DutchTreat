@@ -1,10 +1,17 @@
 package org.semki.dutchtreat.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,17 +31,21 @@ public class Account implements PersistentEntity{
 	
 	@Column(name="name")
 	private String name;
+	
+	@Column(name="email")
+	private String email;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+	        name = "account_role",
+	        joinColumns = @JoinColumn(name = "account_id"),
+	        inverseJoinColumns = @JoinColumn(name = "role_id")
+	)
+	private Set<Role> roles = new HashSet<Role>();
 
 	@Override
 	public Long getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setId(Long id) {
-		// TODO Auto-generated method stub
-		
+		return id;
 	}
 	
 	public boolean isActive() {
@@ -60,7 +71,29 @@ public class Account implements PersistentEntity{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
-//	@OneToMany(mappedBy="account_role")
-//	private List<AccountRole> accRoles = new ArrayList<>();
+	
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	@Override
+	public void setId(Long id) {
+		if (id != null) {
+			this.id = id;
+		}
+	}
+	
 }

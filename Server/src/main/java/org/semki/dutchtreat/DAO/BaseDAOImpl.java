@@ -75,4 +75,16 @@ public abstract class BaseDAOImpl<Entity extends PersistentEntity> implements Ba
 	public Entity find(Long id) {
 		return type.cast(getSession().byId(type).load(id));
 	}
+	
+	public Entity first(List<Entity> list)
+	{
+		if (list.size()>0)
+		{
+			return list.get(0);
+		}
+		else
+		{
+			return null;
+		}
+	}
 }

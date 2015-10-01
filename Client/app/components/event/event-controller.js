@@ -12,9 +12,14 @@ angular.module("Eventos")
 	}
 })
 
-.controller('EventoNewCtrl', function($scope, $rootScope, $location,$http, EventosService) {
+.controller('EventoNewCtrl', function($scope, $rootScope, $location,$http, EventosService,AuthenticationService) {
 	$rootScope.$path = $location.path.bind($location);
 	$scope.evento = EventosService.createEvento();
+
+	AuthenticationService.getAccountList().then(function(response){
+		$scope.accounts = response.data;
+	});
+
 	$scope.addEvento = function() {
 		EventosService.addEvento($scope.evento).then(function() {
 			$location.path('events');
@@ -22,9 +27,14 @@ angular.module("Eventos")
 	};
 })
 
-.controller('EventoEditCtrl', function($scope, $rootScope, $location, $routeParams, EventosService) {
+.controller('EventoEditCtrl', function($scope, $rootScope, $location, $routeParams, EventosService,AuthenticationService) {
 	$rootScope.$path = $location.path.bind($location);
 	$scope.evento = EventosService.getEvento($routeParams.id);
+
+	AuthenticationService.getAccountList().then(function(response){
+		$scope.accounts = response.data;
+	});
+
 	$scope.editEvento = function() {
 		EventosService.updateEvento($scope.evento).then(function() {
 			$location.path('events');
