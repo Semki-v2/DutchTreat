@@ -46,7 +46,7 @@ angular.module("Authentication")
 		        }, function(credentials) {
 		        	$rootScope.currentUser = null;
 					$rootScope.isAuthenticated = null;
-		            alert("error logout");
+		            //alert("error logout");
 		        });
 			}
 			,

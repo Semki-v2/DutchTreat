@@ -24,7 +24,7 @@ angular.module("semki.DutchTreat")
 	};
 
 	$scope.logout = function() {
-		AuthenticationService.logout()
+		AuthenticationService.logout();
 		$rootScope.currentUser = null;
 		$rootScope.isAuthenticated = null;
 	};
