@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -36,13 +37,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private DaoAuthenticationProvider authProvider;
+
+	@Autowired
+	private LogoutSuccessHandler logoutSuccessHandler;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().exceptionHandling().authenticationEntryPoint(entryPointUnauthrizedHandler)
 						.and()
 						.formLogin().loginPage("/app/auth/login").successHandler(authSuccessHandler).failureHandler(authFailureHandler)
-						.and().logout().logoutUrl("/app/auth/logout").logoutSuccessUrl("/app/index.html").and()
+						.and().logout().logoutUrl("/app/auth/logout").logoutSuccessHandler(logoutSuccessHandler).logoutSuccessUrl("/app/index.html").and()
 						.authorizeRequests()
 						.antMatchers("/app/index.html",
 									 "/app/events/**",
