@@ -18,8 +18,9 @@ angular.module("Authentication")
 	$scope.Creation = true;
 
 	$scope.signup = function() {
-
-		AuthenticationService.signup($scope.account);
+		AuthenticationService.signup($scope.account).then(function(){
+			AuthenticationService.login({name:$scope.account.user_login,password:$scope.account.user_password});
+		});
 	};
 })
 

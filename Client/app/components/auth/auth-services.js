@@ -19,10 +19,21 @@ angular.module("Authentication")
 				})
 		        .then(function(credentials) {
 
-		        	$rootScope.isAuthenticated = true;  
+		        	$rootScope.isAuthenticated = true;
 
-		            if ($rootScope.previousPage != null) {
-               			$location.path($rootScope.previousPage).replace();
+		        	$rootScope.$broadcast('Authentication:updated',null);  
+
+		            if (($rootScope.previousPage != null)) {
+		            	var redirectPath = "/app/events";
+
+		            	if(($rootScope.previousPage != "/auth/login") &&
+		            		($rootScope.previousPage != "/auth/registration"))
+		            	{
+		            		redirectPath = $rootScope.previousPage;
+		            	}
+
+
+               			$location.path(redirectPath).replace();
                			$rootScope.previousPage = null;
               		}
               		else
@@ -43,6 +54,7 @@ angular.module("Authentication")
 		        .then(function(credentials) {
 		        	$rootScope.currentUser = null;
 					$rootScope.isAuthenticated = null;
+					$rootScope.$broadcast('Authentication:updated',null);
 		        }, function(credentials) {
 		        	$rootScope.currentUser = null;
 					$rootScope.isAuthenticated = null;
@@ -57,8 +69,7 @@ angular.module("Authentication")
 				    data: account
 				})
 		        .then(function(account) {
-		        	$rootScope.authenticated = true;
-		            $location.path("/dutch-treat/app/auth/login").replace();
+		        	
 		        }, function(account) {
 		            alert("error ");
 		        });
@@ -109,7 +120,9 @@ angular.module("Authentication")
 					}
 					else if($rootScope.currentUser==null)
 					{
-						resolve(currentService.getCurrentUser());
+						currentService.getCurrentUser().then(function(){
+							resolve({currentUser:$rootScope.currentUser,isAuthenticated:$rootScope.authenticated});
+						});
 					}
 				});
 			}
