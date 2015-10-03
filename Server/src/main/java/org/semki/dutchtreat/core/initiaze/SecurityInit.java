@@ -2,7 +2,6 @@ package org.semki.dutchtreat.core.initiaze;
 
 import java.util.ArrayList;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;

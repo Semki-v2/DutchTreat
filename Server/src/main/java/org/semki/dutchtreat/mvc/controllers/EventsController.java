@@ -1,6 +1,5 @@
 package org.semki.dutchtreat.mvc.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -15,10 +14,8 @@ import org.semki.dutchtreat.mvc.dto.ParticipantDTO;
 import org.semki.dutchtreat.mvc.models.AccountModel;
 import org.semki.dutchtreat.mvc.models.EventModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
