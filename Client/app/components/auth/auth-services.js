@@ -2,7 +2,7 @@
 
 angular.module("Authentication")
 
-	.service("AuthenticationService", function ($http,$rootScope,$location) {
+	.service("AuthenticationService", function ($http,$rootScope,$location,$q) {
 		return {
 			login : function (credentials) {
 				return $http({
@@ -73,25 +73,17 @@ angular.module("Authentication")
 			}
 			,
 			getCurrentUser : function(){
-
-				if ($rootScope.currentUser!=null)
-				{
-					return $rootScope.currentUser;
-				}
-				else
-				{
-					$http({
+				return	$http({
 					    method: 'GET',
 					    url: "/dutch-treat/app/auth/current"
 					})
 			        .then(function(response) {
-			        	$rootScope.currentUser = response.data; 
+			        	$rootScope.currentUser = response.data;
+			        	$rootScope.authenticated = true;
+						return {currentUser:$rootScope.currentUser,isAuthenticated:$rootScope.authenticated};		        	 
 			        }, function() {
 			            console.log("current user service error");
 			        });
-
-			        return null;
-				}
 			}
 			,
 			getAccountById : function(accId){
@@ -106,6 +98,20 @@ angular.module("Authentication")
 						    method: 'GET',
 						    url: "/dutch-treat/app/auth/account"
 						});
+			}
+			,
+			isAuthenticated : function(){
+				var currentService = this;
+				return $q(function(resolve,reject){
+					if($rootScope.currentUser!=null)
+					{
+						resolve({currentUser:$rootScope.currentUser,isAuthenticated:$rootScope.authenticated});
+					}
+					else if($rootScope.currentUser==null)
+					{
+						resolve(currentService.getCurrentUser());
+					}
+				});
 			}
 		};
 	});
