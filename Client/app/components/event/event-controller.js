@@ -18,7 +18,21 @@ angular.module("Eventos")
 
 	AuthenticationService.getAccountList().then(function(response){
 		$scope.accounts = response.data;
+
+		if ($rootScope.currentUser != null) {
+			$scope.accounts.map(function(account) {
+				account.selected = ($rootScope.currentUser.id == account.id);
+			});
+		}
 	});
+
+	$scope.multiselectLocalization = {
+		selectAll       : "Все",
+	    selectNone      : "Очистить",
+	    reset           : "Сбросить",
+	    search          : "Найти...",
+	    nothingSelected : "Пусто"
+	};
 
 	$scope.addEvento = function() {
 		EventosService.addEvento($scope.evento).then(function() {
@@ -33,7 +47,25 @@ angular.module("Eventos")
 
 	AuthenticationService.getAccountList().then(function(response){
 		$scope.accounts = response.data;
+
+		$scope.evento.$promise.then(function(value) {
+			var accessAccountsIds = $scope.evento.accessAccounts.map(function(account) {
+				return account.id;
+			});
+
+			$scope.accounts.map(function(account) {
+				account.selected = (accessAccountsIds.indexOf(account.id) >=0 );
+			});
+		});
 	});
+
+	$scope.multiselectLocalization = {
+		selectAll       : "Все",
+	    selectNone      : "Очистить",
+	    reset           : "Сбросить",
+	    search          : "Найти...",
+	    nothingSelected : "Пусто"
+	};
 
 	$scope.editEvento = function() {
 		EventosService.updateEvento($scope.evento).then(function() {

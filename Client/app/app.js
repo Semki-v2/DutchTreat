@@ -9,7 +9,7 @@ angular.module("Authentication",[]);
 // Declare app level module which depends on views, and components
 angular.module("semki.DutchTreat", [
   "ngAnimate", "ngRoute","ngResource", "ui.bootstrap", "ngTagsInput",
-  "angular-loading-bar",
+  "angular-loading-bar", "isteven-multi-select",
   "Eventos", "Purchases", "Transfers", "Balance","Authentication"])
 
   .config(function($locationProvider, $routeProvider, $httpProvider) {
