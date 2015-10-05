@@ -97,6 +97,10 @@ angular.module("semki.DutchTreat", [
 
                 $location.url('/auth/login');
             }
+            else if(response.status === 403)
+            {
+              $location.url('/auth/events'); 
+            }
             else
             {
               console.log("ger error");

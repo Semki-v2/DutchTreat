@@ -8,6 +8,7 @@ import java.util.Set;
 import org.semki.dutchtreat.DAO.AccountDAO;
 import org.semki.dutchtreat.DAO.EventoDAO;
 import org.semki.dutchtreat.DAO.ParticipantDAO;
+import org.semki.dutchtreat.core.exceptions.PermissionExeption;
 import org.semki.dutchtreat.entity.Account;
 import org.semki.dutchtreat.entity.Evento;
 import org.semki.dutchtreat.entity.Participant;
@@ -30,6 +31,9 @@ public class EventModel {
 	
 	@Autowired
 	ParticipantDAO participantDAO;
+	
+	@Autowired
+	AccountModel accModel;
 	
 	public void createEvent(EventDTO eDTO)
 	{
@@ -116,13 +120,33 @@ public class EventModel {
 		List<EventDTO> listDTO = new ArrayList<EventDTO>();
 		
 		for (Evento en : list) {
-			EventDTO eventDTO = new EventDTO(en);
-			List<Participant> participants = participantDAO.getByEvent(en);
-			for (Participant participant : participants) {
-				eventDTO.participants.add(ParticipantDTO.convertToDTO(participant));
-			}
-			listDTO.add(eventDTO);
+			listDTO.add(convertEventToTransport(en));
 		}
 		return listDTO;
+	}
+
+	private EventDTO convertEventToTransport(Evento en) {
+		EventDTO eventDTO = new EventDTO(en);
+		List<Participant> participants = participantDAO.getByEvent(en);
+		for (Participant participant : participants) {
+			eventDTO.participants.add(ParticipantDTO.convertToDTO(participant));
+		}
+		return eventDTO;
+	}
+
+	public EventDTO GetById(Long eventId) throws PermissionExeption {
+		
+		Evento event = eventDAO.get(eventId);
+		
+		Account user = accModel.getCurrentUser();
+		
+		boolean hasAccess = event.getAccessAccounts().contains(user);
+		
+		if (!hasAccess)
+		{
+			throw new PermissionExeption();
+		}
+		
+		return convertEventToTransport(event);
 	}
 }

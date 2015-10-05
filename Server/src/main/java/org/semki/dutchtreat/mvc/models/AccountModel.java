@@ -15,6 +15,8 @@ import org.semki.dutchtreat.entity.Role;
 import org.semki.dutchtreat.mvc.dto.AccountDTO;
 import org.semki.dutchtreat.mvc.dto.RoleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
@@ -89,8 +91,19 @@ public class AccountModel {
 		roleDAO.save(role);
 	}
 	
-	public Account getCurrentUser(String username) {
+	public Account getCurrentUserByUsername(String username)
+	{
 		return accountDAO.getAccountByName(username);
+	}
+	
+	public String getCurrentUsername()
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	     return auth.getName();
+	}
+	
+	public Account getCurrentUser() {
+		return getCurrentUserByUsername(getCurrentUsername());
 	}
 
 	public Account updateAccount(AccountDTO accDTO) {

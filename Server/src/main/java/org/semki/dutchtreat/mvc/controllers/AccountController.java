@@ -46,11 +46,8 @@ public class AccountController {
 	@RequestMapping(value = "/current",method = RequestMethod.GET)
 	@Transactional
 	public @ResponseBody AccountDTO getCurrentUser()
-	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	      String username = auth.getName();
-	      
-	      Account acc = accModel.getCurrentUser(username);
+	{	      
+	    Account acc = accModel.getCurrentUser();
 		
 		return AccountDTO.convertToTransport(acc);
 	}

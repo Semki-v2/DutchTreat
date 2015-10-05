@@ -2,24 +2,30 @@ package org.semki.dutchtreat.mvc.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.semki.dutchtreat.DAO.EventoDAO;
 import org.semki.dutchtreat.DAO.ParticipantDAO;
 import org.semki.dutchtreat.core.enums.Roles;
+import org.semki.dutchtreat.core.exceptions.AccountValidationException;
+import org.semki.dutchtreat.core.exceptions.PermissionExeption;
 import org.semki.dutchtreat.entity.Evento;
 import org.semki.dutchtreat.entity.Participant;
 import org.semki.dutchtreat.mvc.dto.EventDTO;
 import org.semki.dutchtreat.mvc.dto.ParticipantDTO;
+import org.semki.dutchtreat.mvc.dto.RESTFaultDTO;
 import org.semki.dutchtreat.mvc.models.AccountModel;
 import org.semki.dutchtreat.mvc.models.EventModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -53,7 +59,7 @@ public class EventsController {
 	    }
 	    else
 	    {
-	    	listDTO = eventoModel.getRestrictedEventos(accountModel.getCurrentUser(username));
+	    	listDTO = eventoModel.getRestrictedEventos(accountModel.getCurrentUserByUsername(username));
 	    } 
 		
 		return listDTO;
@@ -61,14 +67,9 @@ public class EventsController {
 	
 	@RequestMapping(value = "/eventos/{eventId}", method = RequestMethod.GET)
 	@Transactional
-	public EventDTO getEventById(@PathVariable Long eventId) {
-		Evento evento = dao.get(eventId);
-		EventDTO eventDTO = new EventDTO(evento);
-		List<Participant> participants = paricipantDAO.getByEvent(evento);
-		for (Participant participant : participants) {
-			eventDTO.participants.add(ParticipantDTO.convertToDTO(participant));
-		}
-		return eventDTO;
+	public EventDTO getEventById(@PathVariable Long eventId) throws PermissionExeption {
+		
+		return eventoModel.GetById(eventId);
 	}
 	
 	@RequestMapping(value = "/eventos/{eventId}", method = RequestMethod.DELETE)
@@ -91,5 +92,16 @@ public class EventsController {
 	public void update(@RequestBody EventDTO eDTO, @PathVariable Long eventId)
 	{
 		eventoModel.updateEvent(eDTO, eventId);
+	}
+	
+	@ExceptionHandler(PermissionExeption.class)
+	public @ResponseBody RESTFaultDTO handleInvalidAccException(HttpServletResponse response, PermissionExeption exception)
+	{
+		RESTFaultDTO dto = new RESTFaultDTO();
+		
+		dto.Message = exception.getMessage();
+		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+		
+		return dto;
 	}
 }
