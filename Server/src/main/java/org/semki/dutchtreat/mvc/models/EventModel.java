@@ -8,6 +8,7 @@ import java.util.Set;
 import org.semki.dutchtreat.DAO.AccountDAO;
 import org.semki.dutchtreat.DAO.EventoDAO;
 import org.semki.dutchtreat.DAO.ParticipantDAO;
+import org.semki.dutchtreat.core.enums.Roles;
 import org.semki.dutchtreat.core.exceptions.PermissionExeption;
 import org.semki.dutchtreat.entity.Account;
 import org.semki.dutchtreat.entity.Evento;
@@ -138,15 +139,23 @@ public class EventModel {
 		
 		Evento event = eventDAO.get(eventId);
 		
-		Account user = accModel.getCurrentUser();
-		
-		boolean hasAccess = event.getAccessAccounts().contains(user);
-		
-		if (!hasAccess)
+		if (!CurrentUserHasAccess(event))
 		{
 			throw new PermissionExeption();
 		}
 		
 		return convertEventToTransport(event);
+	}
+	
+	public boolean CurrentUserHasAccess(Evento e)
+	{
+		Account user = accModel.getCurrentUser();
+		
+		if (accModel.accountHasRole(user.getName(),Roles.ADMIN))
+		{
+			return true;
+		}
+		
+		return e.getAccessAccounts().contains(user);
 	}
 }

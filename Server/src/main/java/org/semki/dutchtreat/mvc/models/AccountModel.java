@@ -146,6 +146,11 @@ public class AccountModel {
 		
 		return result;
 	}
+	
+	public boolean currentUserHasRole(Roles role)
+	{
+		return accountHasRole(getCurrentUsername(), role);
+	}
 
 	public List<AccountDTO> getAccountList() {
 		List<AccountDTO> accDtoList = new ArrayList<AccountDTO>();
