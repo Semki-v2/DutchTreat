@@ -26,6 +26,8 @@ angular.module("Authentication")
 
 		        	$rootScope.isAuthenticated = true;
 
+		        	$rootScope.currentUser = null;
+
 		        	$rootScope.$broadcast('Authentication:updated',null);  
 
 		            if (($rootScope.previousPage != null)) {
