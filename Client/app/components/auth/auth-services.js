@@ -3,6 +3,11 @@
 angular.module("Authentication")
 
 	.service("AuthenticationService", function ($http,$rootScope,$location,$q) {
+
+		var LOCATION_LOGIN = "/auth/login";
+		var LOCATION_REGISTRATION = "/auth/registration";
+		var LOCATION_MAIN = "/auth/events";
+
 		return {
 			login : function (credentials) {
 				return $http({
@@ -24,10 +29,10 @@ angular.module("Authentication")
 		        	$rootScope.$broadcast('Authentication:updated',null);  
 
 		            if (($rootScope.previousPage != null)) {
-		            	var redirectPath = "/app/events";
+		            	var redirectPath = LOCATION_MAIN;
 
-		            	if(($rootScope.previousPage != "/auth/login") &&
-		            		($rootScope.previousPage != "/auth/registration"))
+		            	if(($rootScope.previousPage != LOCATION_LOGIN) &&
+		            		($rootScope.previousPage != LOCATION_REGISTRATION))
 		            	{
 		            		redirectPath = $rootScope.previousPage;
 		            	}
@@ -38,7 +43,7 @@ angular.module("Authentication")
               		}
               		else
               		{
-              			$location.path("/app/events").replace();
+              			$location.path(LOCATION_MAIN).replace();
               		}
 		        }, function(credentials) {
 		            alert("error logging in");
@@ -55,6 +60,9 @@ angular.module("Authentication")
 		        	$rootScope.currentUser = null;
 					$rootScope.isAuthenticated = null;
 					$rootScope.$broadcast('Authentication:updated',null);
+
+					$location.path(LOCATION_LOGIN).replace();
+
 		        }, function(credentials) {
 		        	$rootScope.currentUser = null;
 					$rootScope.isAuthenticated = null;

@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 
 import org.semki.dutchtreat.DAO.EventoDAO;
 import org.semki.dutchtreat.DAO.ParticipantDAO;
-import org.semki.dutchtreat.core.initiaze.Roles;
+import org.semki.dutchtreat.core.enums.Roles;
 import org.semki.dutchtreat.entity.Evento;
 import org.semki.dutchtreat.entity.Participant;
 import org.semki.dutchtreat.mvc.dto.EventDTO;

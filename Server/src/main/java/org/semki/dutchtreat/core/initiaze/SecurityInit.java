@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.apache.log4j.Logger;
 import org.semki.dutchtreat.DAO.AccountDAO;
 import org.semki.dutchtreat.DAO.RoleDAO;
+import org.semki.dutchtreat.core.enums.Roles;
 import org.semki.dutchtreat.mvc.dto.AccountDTO;
 import org.semki.dutchtreat.mvc.dto.RoleDTO;
 import org.semki.dutchtreat.mvc.models.AccountModel;
