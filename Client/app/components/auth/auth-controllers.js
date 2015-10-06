@@ -24,7 +24,7 @@ angular.module("Authentication")
 	};
 })
 
-.controller("AccountEditCtrl", function($scope, $rootScope, $location, $routeParams,AuthenticationService) {
+.controller("AccountEditCtrl", function($scope, $rootScope, $location, $routeParams,growl,AuthenticationService) {
 	$rootScope.$path = $location.path.bind($location);
 
 	var account_id = Number($routeParams.account_id);
@@ -37,6 +37,8 @@ angular.module("Authentication")
 
 	$scope.update = function() {
 
-		AuthenticationService.update($scope.account);
+		AuthenticationService.update($scope.account).then(function(){
+			growl.success("пользователь успешно сохранен");
+		});
 	};
 });

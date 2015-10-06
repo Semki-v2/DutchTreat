@@ -18,6 +18,7 @@
     "ng-tags-input": "~3.0.0",
     "bootswatch-dist": "cosmo", 
     "angular-loading-bar": "0.8.0",
-    "isteven-angular-multiselect": "#4.0.0"
+    "isteven-angular-multiselect": "#4.0.0",
+    "angular-growl-2": "0.7.5"
   }
 }

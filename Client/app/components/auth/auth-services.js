@@ -2,7 +2,7 @@
 
 angular.module("Authentication")
 
-	.service("AuthenticationService", function ($http,$rootScope,$location,$q) {
+	.service("AuthenticationService", function ($http,$rootScope,$location,$q,growl) {
 
 		var LOCATION_LOGIN = "/auth/login";
 		var LOCATION_REGISTRATION = "/auth/registration";
@@ -48,7 +48,8 @@ angular.module("Authentication")
               			$location.path(LOCATION_MAIN).replace();
               		}
 		        }, function(credentials) {
-		            alert("error logging in");
+		            //alert("error logging in");
+		            growl.error("Ошибка входа. Проверьте пароль и попробуйте еще раз");
 		        });
 			}
 			,

@@ -9,12 +9,15 @@ angular.module("Authentication",[]);
 // Declare app level module which depends on views, and components
 angular.module("semki.DutchTreat", [
   "ngAnimate", "ngRoute","ngResource", "ui.bootstrap", "ngTagsInput",
-  "angular-loading-bar", "isteven-multi-select",
+  "angular-loading-bar", "isteven-multi-select","angular-growl",
   "Eventos", "Purchases", "Transfers", "Balance","Authentication"])
 
-  .config(function($locationProvider, $routeProvider, $httpProvider) {
+  .config(function($locationProvider, $routeProvider, $httpProvider,growlProvider) {
 
     $locationProvider.html5Mode(true);
+
+    growlProvider.globalTimeToLive(5000);
+    growlProvider.globalPosition('bottom-center');
 
     $routeProvider
       .when("/events", {
@@ -73,7 +76,7 @@ angular.module("semki.DutchTreat", [
         redirectTo: "events/"
       });
 
-    var interceptor = function ($q,$location,$rootScope) {
+    var interceptor = function ($q,$location,$rootScope,growl) {
       return {
         request: function ( config ) { 
             //console.log("run request");
@@ -99,15 +102,18 @@ angular.module("semki.DutchTreat", [
             }
             else if(response.status === 403)
             {
+              growl.warning("доступ запрещен");
               $location.url('/auth/events'); 
             }
             else
             {
               console.log("ger error");
+              growl.error("На сервере произошла ошибка");
             } 
             return $q.reject( response );
           }
         };
       };
     $httpProvider.interceptors.push(interceptor);
-  });
+  }
+);
