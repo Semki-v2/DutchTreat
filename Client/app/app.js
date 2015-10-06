@@ -105,11 +105,15 @@ angular.module("semki.DutchTreat", [
               growl.warning("доступ запрещен");
               $location.url('/auth/events'); 
             }
-            else
+            else if((response.status >= 500)&&(response.status < 600))
             {
               console.log("ger error");
               growl.error("На сервере произошла ошибка");
-            } 
+            }
+            else
+            {
+              // other errors
+            }
             return $q.reject( response );
           }
         };

@@ -10,7 +10,7 @@ angular.module("Authentication")
 	};
 })
 
-.controller("AccountNewCtrl", function($scope, $rootScope, $location, $routeParams,AuthenticationService) {
+.controller("AccountNewCtrl", function($scope, $rootScope, $location, $routeParams,growl,AuthenticationService) {
 	$rootScope.$path = $location.path.bind($location);
 
 	$scope.account = {};

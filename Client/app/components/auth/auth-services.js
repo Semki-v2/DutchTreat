@@ -79,10 +79,14 @@ angular.module("Authentication")
 				    url: "/dutch-treat/app/auth/registration",
 				    data: account
 				})
-		        .then(function(account) {
-		        	
-		        }, function(account) {
-		            alert("error ");
+		        .then(function(response) {
+		        	growl.success("пользователь успешно сохранен");
+		        }, function(response) {
+		        	if (response.status == 400)
+		        	{
+		        		growl.error(response.data.Message);
+		        	}
+		            return $q.reject();
 		        });
 			}
 			,
