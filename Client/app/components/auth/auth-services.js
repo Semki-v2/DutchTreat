@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module("Authentication")
-
-	.service("AuthenticationService", function ($http,$rootScope,$location,$q,growl) {
-
-		var LOCATION_LOGIN = "/auth/login";
-		var LOCATION_REGISTRATION = "/auth/registration";
-		var LOCATION_MAIN = "/auth/events";
+	.constant("AuthConst",{
+		LOCATION_LOGIN : "/auth/login",
+		LOCATION_REGISTRATION : "/auth/registration",
+		LOCATION_MAIN : "/auth/events"
+	})
+	.service("AuthenticationService", function ($http,$rootScope,$location,$q,growl,AuthConst) {
 
 		return {
 			login : function (credentials) {
@@ -31,10 +31,10 @@ angular.module("Authentication")
 		        	$rootScope.$broadcast('Authentication:updated',null);  
 
 		            if (($rootScope.previousPage != null)) {
-		            	var redirectPath = LOCATION_MAIN;
+		            	var redirectPath = AuthConst.LOCATION_MAIN;
 
-		            	if(($rootScope.previousPage != LOCATION_LOGIN) &&
-		            		($rootScope.previousPage != LOCATION_REGISTRATION))
+		            	if(($rootScope.previousPage != AuthConst.LOCATION_LOGIN) &&
+		            		($rootScope.previousPage != AuthConst.LOCATION_REGISTRATION))
 		            	{
 		            		redirectPath = $rootScope.previousPage;
 		            	}
@@ -45,7 +45,7 @@ angular.module("Authentication")
               		}
               		else
               		{
-              			$location.path(LOCATION_MAIN).replace();
+              			$location.path(AuthConst.LOCATION_MAIN).replace();
               		}
 		        }, function(credentials) {
 		            //alert("error logging in");
@@ -64,7 +64,7 @@ angular.module("Authentication")
 					$rootScope.isAuthenticated = null;
 					$rootScope.$broadcast('Authentication:updated',null);
 
-					$location.path(LOCATION_LOGIN).replace();
+					$location.path(AuthConst.LOCATION_LOGIN).replace();
 
 		        }, function(credentials) {
 		        	$rootScope.currentUser = null;
@@ -80,7 +80,7 @@ angular.module("Authentication")
 				    data: account
 				})
 		        .then(function(response) {
-		        	growl.success("пользователь успешно сохранен");
+		        	growl.success("пользователь успешно зарегистрирован");
 		        }, function(response) {
 		        	if (response.status == 400)
 		        	{
@@ -95,7 +95,15 @@ angular.module("Authentication")
 				    method: 'POST',
 				    url: "/dutch-treat/app/auth/account/edit",
 				    data: account
-				})
+				}).then(function(response) {
+		        		growl.success("пользователь успешно сохранен");
+			        }, function(response) {
+			        	if (response.status == 400)
+			        	{
+			        		growl.error(response.data.Message);
+			        	}
+			            return $q.reject();
+			        });
 			}
 			,
 			getCurrentUser : function(){

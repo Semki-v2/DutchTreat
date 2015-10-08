@@ -1,7 +1,22 @@
 <div class="form-group">
     <label for="login" class="control-label col-sm-1">Логин: </label>
     <div class="col-sm-4">
-      <input type="text" ng-model="account.user_login" ng-readonly="Edit" class="form-control" id="login" placeholder="Логин" required />
+      <input type="text" 
+            ng-model="account.user_login" 
+            ng-readonly="Edit" 
+            name="login" 
+            class="form-control" 
+            ng-minlength="4" 
+            id="login" 
+            placeholder="Логин" 
+            required
+            ng-remote-validate="/customer/validpassword"
+            ng-remote-method="GET" />
+      <div ng-show="form.$submitted || form.login.$touched">
+        <span ng-show="form.login.$error.required">Требуется логин</span>
+        <span ng-show="form.login.$error.existed">Данный логин занят</span>
+        <span ng-show="form.login.$error.minlength">Минимальна длинна 4 символа</span>
+      </div>
     </div>
 </div>
 <div class="form-group">
