@@ -52,6 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 									 "/app/events/**",
 									 "/app/auth/login",
 									 "/app/auth/registration",
+									 "/app/auth/checkuser",
+									 "/app/auth/checkemail",
 									 "/app/bower_components/**",
 									 "/app/components/**",
 									 "/app/views/**",

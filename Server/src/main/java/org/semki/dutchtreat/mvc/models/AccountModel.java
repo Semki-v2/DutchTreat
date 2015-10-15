@@ -163,4 +163,8 @@ public class AccountModel {
 		
 		return accDtoList;
 	}
+
+	public Account getAccountByEmail(String email) {
+		return accountDAO.getAccountByEmail(email);
+	}
 }

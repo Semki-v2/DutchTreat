@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -88,6 +89,22 @@ public class AccountController {
 	public @ResponseBody List<AccountDTO> getAccountList()
 	{	
 		return  accModel.getAccountList(); 
+	}
+	
+	@RequestMapping(value = "/checkuser",method = RequestMethod.GET,params = {"username"})
+	@Transactional
+	public @ResponseBody boolean checkUser(@RequestParam("username") String username)
+	{
+		Account account = accModel.getCurrentUserByUsername(username);
+		return  (account==null);
+	}
+	
+	@RequestMapping(value = "/checkemail",method = RequestMethod.GET,params = {"email"})
+	@Transactional
+	public @ResponseBody boolean checkEmail(@RequestParam("email") String email)
+	{
+		Account account = accModel.getAccountByEmail(email);
+		return  (account==null);
 	}
 	
 	

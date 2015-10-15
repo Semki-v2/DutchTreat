@@ -134,6 +134,22 @@ angular.module("Authentication")
 						});
 			}
 			,
+			checkLogin : function(login){
+				return $http({
+							    method: 'GET',
+							    url: "/dutch-treat/app/auth/checkuser",
+							    params: {username:login}
+							});	
+			}
+			,
+			checkEmail : function(email){
+				return $http({
+							    method: 'GET',
+							    url: "/dutch-treat/app/auth/checkemail",
+							    params: {email:email}
+							});	
+			}
+			,
 			isAuthenticated : function(){
 				var currentService = this;
 				return $q(function(resolve,reject){

@@ -8,32 +8,45 @@
             class="form-control" 
             ng-minlength="4" 
             id="login" 
-            placeholder="Логин" 
-            required
-            ng-remote-validate="/customer/validpassword"
-            ng-remote-method="GET" />
+            placeholder="Логин"
+            ng-pattern="/^[A-Za-z0-9_-]{4,15}$/"
+            ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"
+            user-validation
+            required />
       <div ng-show="form.$submitted || form.login.$touched">
         <span ng-show="form.login.$error.required">Требуется логин</span>
-        <span ng-show="form.login.$error.existed">Данный логин занят</span>
         <span ng-show="form.login.$error.minlength">Минимальна длинна 4 символа</span>
+        <span ng-show="form.login.$error.pattern">Не соответствует шаблону</span>
+        <span ng-if="Creation" ng-show="form.login.$error.userValidation">Логин занят</span>
       </div>
     </div>
 </div>
 <div class="form-group">
     <label for="password" class="control-label col-sm-1">Пароль: </label>
     <div class="col-sm-4">
-      <input type="password" ng-model="account.user_password" class="form-control" id="password" placeholder="Пароль" required />
+      <input type="password" ng-model="account.user_password" class="form-control" id="password" placeholder="Пароль" name="password" required />
     </div>
 </div>
 <div class="form-group">
     <label for="passConfirmation" class="control-label col-sm-1">Подтверждение: </label>
     <div class="col-sm-4">
-      <input type="password" ng-model="account.password_confirmation" class="form-control" id="passConfirmation" placeholder="Подтверждение" required/>
+      <input type="password" ng-model="account.password_confirmation" class="form-control" id="passConfirmation" name="passConfirmation" placeholder="Подтверждение" pw-check="password" required/>
+      <div ng-show="form.$submitted || form.email.$touched">
+        <span ng-show="form.passConfirmation.$error.required">Требуется подтверждение пароля</span>
+        <span ng-show="form.passConfirmation.$error.pwmatch">Пароли не совпадают</span>
+      </div>
     </div>
 </div>
 <div class="form-group">
     <label for="email" class="control-label col-sm-1">Email: </label>
     <div class="col-sm-4">
-      <input type="email" ng-model="account.email" class="form-control" id="email" placeholder="Email" />
+      <input type="email"
+             ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }" 
+             email-validation ng-model="account.email" class="form-control" name="email" id="email" placeholder="Email" />
+      <div ng-show="form.$submitted || form.email.$touched">
+        <span ng-show="form.email.$error.email">Не валидный email</span>
+        <span ng-show="form.email.$error.required">Требуется email</span>
+        <span ng-if="Creation" ng-show="form.email.$error.emailValidation">Email занят</span>
+      </div>
     </div>
 </div>
