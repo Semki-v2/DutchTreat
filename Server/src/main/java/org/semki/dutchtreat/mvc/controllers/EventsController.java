@@ -94,6 +94,20 @@ public class EventsController {
 		eventoModel.updateEvent(eDTO, eventId);
 	}
 	
+	@RequestMapping(value = "/eventos/{eventId}/createInvate",method = RequestMethod.GET)
+	@Transactional
+	public @ResponseBody EventDTO createInvate(@PathVariable Long eventId)
+	{
+		return eventoModel.createInvate(eventId);
+	}
+	
+	@RequestMapping(value = "/eventos/{eventId}/addUser/{invateHash}",method = RequestMethod.GET)
+	@Transactional
+	public void addUser(@PathVariable Long eventId,@PathVariable String invateHash) throws PermissionExeption
+	{
+		eventoModel.addUser(eventId,invateHash);
+	}
+	
 	@ExceptionHandler(PermissionExeption.class)
 	public @ResponseBody RESTFaultDTO handleInvalidAccException(HttpServletResponse response, PermissionExeption exception)
 	{

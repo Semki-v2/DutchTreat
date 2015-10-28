@@ -25,6 +25,8 @@ public class Evento implements PersistentEntity {
 	
 	private String name;
 	
+	private String invate;
+	
 //	private Date startDate;
 //	
 //	private Date finishDate;
@@ -76,6 +78,14 @@ public class Evento implements PersistentEntity {
 	}
 	public void setAccessAccounts(Set<Account> accessAccounts) {
 		this.accessAccounts = accessAccounts;
+	}
+	
+	@Column(name="invate")
+	public String getInvate() {
+		return invate;
+	}
+	public void setInvate(String invate) {
+		this.invate = invate;
 	}
 	
 }

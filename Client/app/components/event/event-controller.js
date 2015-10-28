@@ -45,6 +45,12 @@ angular.module("Eventos")
 	$rootScope.$path = $location.path.bind($location);
 	$scope.evento = EventosService.getEvento($routeParams.id);
 
+	$scope.$watch('evento.invate', function(newValue, oldValue) {
+		var currentBasePath = $location.absUrl().split("edit")[0];
+
+		$scope.inviteHash = currentBasePath+"addUser/"+$scope.evento.invate;
+	});
+
 	AuthenticationService.getAccountList().then(function(response){
 		$scope.accounts = response.data;
 
@@ -72,8 +78,24 @@ angular.module("Eventos")
 			$location.path('events');
 		});		
 	};
-})
 
+	$scope.invateUser = function() {
+		EventosService.invateUser($scope.evento).$promise.then(function(evento) {
+			$scope.evento = evento;
+		});		
+	};
+})
+.controller('EventoUrlEditCtrl', function($scope, $rootScope, $location, $routeParams,growl, EventosService,AuthenticationService) {
+	var invite = $routeParams.invateHash;
+
+	EventosService.addUser($routeParams.id,$routeParams.invateHash).$promise.then(function(){
+		growl.success("пользователь успешно добавлен к событию");
+		$location.path("/auth/events").replace();
+	},function(){
+		growl.error("ошибка при добавлении поьзователя");
+		$location.path("/auth/events").replace();
+	});
+})
 .controller('EventoViewCtrl', function($scope, $rootScope, $location, $routeParams, EventosService, PurchaseService) {
 	$rootScope.$path = $location.path.bind($location);
 	$scope.evento = EventosService.getEvento($routeParams.id);

@@ -16,5 +16,12 @@
     </select>
   </div> -->
   <div isteven-multi-select input-model="accounts" output-model="evento.accessAccounts" button-label="user_login" item-label="user_login" tick-property="selected" max-labels="3" search-property="user_login" translation="multiselectLocalization"></div>
+  <div class="form-group">
+    <label for="evento_invate" class="control-label col-sm-1">Приглашение: </label>
+    <div class="col-sm-10">
+        <input type="text" ng-model="inviteHash" ng-readonly="true" class="form-control" id="evento_invate" />
+        <input type="button" ng-click="invateUser()" class="btn btn-primary" value="Приглаисть"/>
+    </div>
+  </div>
 </div>
 <input type="submit" class="btn btn-primary" value="Сохранить"/>

@@ -11,6 +11,8 @@ public class EventDTO {
 	
 	public String name;
 	
+	public String invate;
+	
 	public List<ParticipantDTO> participants = new ArrayList<>();
 	
 	public List<AccountDTO> accessAccounts = new ArrayList<AccountDTO>();
@@ -22,6 +24,7 @@ public class EventDTO {
 	public EventDTO(Evento e) {
 		this.id = e.getId();
 		this.name = e.getName();
+		this.invate = e.getInvate();
 		
 		for (Account account : e.getAccessAccounts()) {
 			this.accessAccounts.add(AccountDTO.convertToTransport(account));
